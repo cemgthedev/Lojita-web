@@ -17,10 +17,6 @@ const messages = {
     invalid_type_complement: "Complemento inválido",
     required_error_cep: "CEP é obrigatório",
     invalid_type_cep: "CEP inválido",
-    required_error_linkMap: "URL do mapa é obrigatório",
-    invalid_type_linkMap: "URL do mapa inválida",
-    required_error_enterpriseId: "ID da empresa é obrigatório",
-    invalid_type_enterpriseId: "ID da empresa inválida",
 }
 
 export const createAddressFormSchema = z
@@ -29,8 +25,7 @@ export const createAddressFormSchema = z
         .string({
           required_error: messages.required_error_name,
           invalid_type_error: messages.invalid_type_name,
-        })
-        .optional(),
+        }),
       uf: z
         .string({
           required_error: messages.required_error_uf,
@@ -42,20 +37,17 @@ export const createAddressFormSchema = z
         .string({
           required_error: messages.required_error_city,
           invalid_type_error: messages.invalid_type_city,
-        })
-        .optional(),
+        }),
       street: z
         .string({
           required_error: messages.required_error_street,
           invalid_type_error: messages.invalid_type_street,
-        })
-        .optional(),
+        }),
       neighborhood: z
         .string({
           required_error: messages.required_error_neighborhood,
           invalid_type_error: messages.invalid_type_neighborhood,
-        })
-        .optional(),
+        }),
       number: z
         .string({
           required_error: messages.required_error_number,
@@ -75,18 +67,4 @@ export const createAddressFormSchema = z
         })
         .min(8, { message: messages.invalid_type_cep })
         .optional(),
-      linkMap: z
-        .string({
-          required_error: messages.required_error_linkMap,
-          invalid_type_error: messages.invalid_type_linkMap,
-        })
-        .url({ message: messages.invalid_type_linkMap })
-        .optional(),
-      enterpriseId: z
-        .number({
-          required_error: messages.required_error_enterpriseId,
-          invalid_type_error: messages.invalid_type_enterpriseId,
-        })
-        .optional(),
-    })
-    .optional();
+    });

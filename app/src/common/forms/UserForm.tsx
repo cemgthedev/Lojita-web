@@ -1,74 +1,69 @@
-import { InputImage } from "@/components/ui/InputImage";
+import { getGenderOptions } from "@/data/getGenderOptions";
 import {
   Accordion,
   AccordionItem,
+  Autocomplete,
+  AutocompleteItem,
   Input
 } from "@nextui-org/react";
 import { Controller, useFormContext } from "react-hook-form";
-import { CreateEnterpriseFormData } from "../../validations/create-form.schema";
+import { CreateUserFormData } from "../validations/register-user.schema";
 
-export const EnterpriseForm = () => {
+export const UserForm = () => {
   const {
     control,
     formState: { errors },
-  } = useFormContext<CreateEnterpriseFormData>();
+  } = useFormContext<CreateUserFormData>();
+  
+  const genders = getGenderOptions();
 
   return (
     <>
-      <Accordion defaultExpandedKeys={["dados-da-empresa"]} itemClasses={{ title: "text-lg font-semibold" }}>
-        <AccordionItem key="dados-da-empresa" aria-label="Dados da empresa" title="Dados da empresa">
+      <Accordion defaultExpandedKeys={["dados-pessoais"]} itemClasses={{ title: "text-lg font-semibold" }}>
+        <AccordionItem key="dados-pessoais" aria-label="Dados pessoais" title="Dados pessoais">
           <div className="flex flex-col gap-2">
-            <div className="flex gap-2">
-              <InputImage
-                name="avatarUrl"
-                label="Selecione uma imagem"
-                control={control}
-              />
-              <div className="w-full flex flex-col gap-2">
-                <Controller
-                  control={control}
-                  name="name"
-                  render={({ field: { onChange, onBlur, ref, value } }) => (
-                    <>
-                      <Input
-                        size="sm"
-                        ref={ref}
-                        type="text"
-                        onBlur={onBlur}
-                        variant="bordered"
-                        onChange={onChange}
-                        value={value as any}
-                        label="Nome da empresa"
-                        isRequired
-                        isInvalid={!!errors.name}
-                        errorMessage={errors.name?.message}
-                      />
-                    </>
-                  )}
-                />
-                <Controller
-                  control={control}
-                  name="document"
-                  render={({ field: { onChange, onBlur, ref, value } }) => (
-                    <>
-                      <Input
-                        size="sm"
-                        ref={ref}
-                        type="text"
-                        onBlur={onBlur}
-                        variant="bordered"
-                        onChange={onChange}
-                        value={value as any}
-                        label="CPF/CNPJ da empresa"
-                        isRequired
-                        isInvalid={!!errors.document}
-                        errorMessage={errors.document?.message}
-                      />
-                    </>
-                  )}
-                />
-              </div>
-            </div>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field: { onChange, onBlur, ref, value } }) => (
+                <>
+                  <Input
+                    size="sm"
+                    ref={ref}
+                    type="text"
+                    onBlur={onBlur}
+                    variant="bordered"
+                    onChange={onChange}
+                    value={value as any}
+                    label="Informe seu nome"
+                    isRequired
+                    isInvalid={!!errors.name}
+                    errorMessage={errors.name?.message}
+                  />
+                </>
+              )}
+            />
+            <Controller
+              control={control}
+              name="cpf"
+              render={({ field: { onChange, onBlur, ref, value } }) => (
+                <>
+                  <Input
+                    size="sm"
+                    ref={ref}
+                    type="text"
+                    onBlur={onBlur}
+                    variant="bordered"
+                    onChange={onChange}
+                    value={value as any}
+                    label="CPF do usuário"
+                    isRequired
+                    isInvalid={!!errors.cpf}
+                    errorMessage={errors.cpf?.message}
+                  />
+                </>
+              )}
+            />
             <Controller
               control={control}
               name="email"
@@ -82,7 +77,7 @@ export const EnterpriseForm = () => {
                     variant="bordered"
                     onChange={onChange}
                     value={value as any}
-                    label="Email da empresa"
+                    label="Informe seu email"
                     isRequired
                     isInvalid={!!errors.email}
                     errorMessage={errors.email?.message}
@@ -134,9 +129,65 @@ export const EnterpriseForm = () => {
                 )}
               />
             </div>
+            <div className="flex gap-2">
+              <Controller
+                control={control}
+                name="gender"
+                render={({ field: { onChange, onBlur, ref, value } }) => (
+                  <>
+                    <Autocomplete
+                      size="sm"
+                      ref={ref}
+                      onBlur={onBlur}
+                      value={value as any}
+                      label="Informe seu sexo"
+                      items={genders}
+                      defaultSelectedKey={value}
+                      inputValue={genders.find((option) => option.value === value)?.label}
+                      onSelectionChange={onChange}
+                      isRequired
+                      isInvalid={!!errors.gender}
+                      errorMessage={errors.gender?.message}
+                    >
+                      {(item) => (
+                        <AutocompleteItem key={item.value} value={item.label}>
+                          {item.label}
+                        </AutocompleteItem>
+                      )}
+                    </Autocomplete>
+
+                  </>
+                )}
+              />
+              <Controller
+                control={control}
+                name="age"
+                render={({ field: { onChange, onBlur, ref, value } }) => (
+                  <>
+                    <Input
+                      size="sm"
+                      ref={ref}
+                      type="number"
+                      min={1}
+                      onBlur={onBlur}
+                      variant="bordered"
+                      onChange={(ageValue) => {
+                        const age = Number(ageValue.target.value);
+                        
+                        onChange(age);
+                      }}
+                      value={value as any}
+                      label="Informe sua idade"
+                      isInvalid={!!errors.age}
+                      errorMessage={errors.age?.message}
+                    />
+                  </>
+                )}
+              />
+            </div>
             <Controller
               control={control}
-              name="phone"
+              name="phone_number"
               render={({ field: { onChange, onBlur, ref, value } }) => (
                 <>
                   <Input
@@ -148,8 +199,8 @@ export const EnterpriseForm = () => {
                     onChange={onChange}
                     value={value as any}
                     label="Telefone de contato"
-                    isInvalid={!!errors.phone}
-                    errorMessage={errors.phone?.message}
+                    isInvalid={!!errors.phone_number}
+                    errorMessage={errors.phone_number?.message}
                   />
                 </>
               )}
@@ -158,6 +209,27 @@ export const EnterpriseForm = () => {
         </AccordionItem>
         <AccordionItem key="dados-de-localizacao" aria-label="Dados de localização" title="Dados de localização">
           <div className="flex flex-col gap-2">
+            <Controller
+              control={control}
+              name="address.name"
+              render={({ field: { onChange, onBlur, ref, value } }) => (
+                <>
+                  <Input
+                    size="sm"
+                    ref={ref}
+                    type="text"
+                    onBlur={onBlur}
+                    variant="bordered"
+                    onChange={onChange}
+                    value={value as any}
+                    label="Título do endereço"
+                    isRequired
+                    isInvalid={!!errors.address?.name}
+                    errorMessage={errors.address?.name?.message}
+                  />
+                </>
+              )}
+            />
             <div className="flex gap-2">
               <Controller
                 control={control}
@@ -193,6 +265,7 @@ export const EnterpriseForm = () => {
                       onChange={onChange}
                       value={value as any}
                       label="Cidade"
+                      isRequired
                       isInvalid={!!errors.address?.city}
                       errorMessage={errors.address?.city?.message}
                     />
@@ -236,6 +309,7 @@ export const EnterpriseForm = () => {
                       onChange={onChange}
                       value={value as any}
                       label="Bairro"
+                      isRequired
                       isInvalid={!!errors.address?.neighborhood}
                       errorMessage={errors.address?.neighborhood?.message}
                     />
@@ -256,6 +330,7 @@ export const EnterpriseForm = () => {
                       onChange={onChange}
                       value={value as any}
                       label="Nome da rua/avenida"
+                      isRequired
                       isInvalid={!!errors.address?.street}
                       errorMessage={errors.address?.street?.message}
                     />

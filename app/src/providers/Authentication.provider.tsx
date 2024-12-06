@@ -1,22 +1,16 @@
-import { URLS } from "@/constants/urls";
-
-import { logout } from "@/utils/logout.util";
-import { notify } from "@/utils/notify.util";
-
-import { RefetchOptions, useQuery } from "@tanstack/react-query";
-import { isAxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
-
-import { getUserInformationQuery } from "@/common/queries/get-user-information.query";
-import { TUserLogged } from "@/types/TUserLogged";
+import { ACCESS_TOKEN } from "@/constants/tokens";
+import { loginMutation } from "@/pages/Login/mutations/login.mutation";
+import { TCredential } from "@/types/TCredential";
+import { TUser } from "@/types/TUser";
+import { cache } from "@/utils/cache.util";
+import { useQuery } from "@tanstack/react-query";
 import { PropsWithChildren, createContext, useState } from "react";
 
 interface AuthenticationContext {
-  user: TUserLogged | null | undefined;
+  user: TUser | null | undefined;
   isLoading: boolean;
 
   setIsLoading(value: boolean): void;
-  refetchUserInformation: (options?: RefetchOptions | undefined) => void;
 }
 
 export const AuthenticationContext = createContext<AuthenticationContext>(
@@ -25,41 +19,26 @@ export const AuthenticationContext = createContext<AuthenticationContext>(
 
 export const AuthenticationProvider = ({ children }: PropsWithChildren) => {
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-
-  const userData = useQuery({
+  
+  const { data } = useQuery({
+    queryKey: [ACCESS_TOKEN],
     queryFn: async () => {
-      try {
-        setIsLoading(true);
-        const userInfo: TUserLogged = await getUserInformationQuery();
-        return userInfo;
-      } catch (error) {
-        if (isAxiosError(error)) {
-          if (error.response?.status === 401) {
-            notify(error.response.data.message, { type: "error" });
-            logout();
-            notify("Sua sessão foi encerrada", { type: "error" });
-            navigate(URLS.login);
-          }
-        }
-        return null;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    queryKey: [location.pathname],
-    refetchOnWindowFocus: false,
-  });
+      setIsLoading(true);
+      const storage = cache.getValue(ACCESS_TOKEN);
+      const credential: TCredential = JSON.parse(storage || "");
+      const response = await loginMutation(credential);
+      setIsLoading(false);
 
-  const { data: user } = userData;
+      return response;
+    }
+  })
 
   return (
     <AuthenticationContext.Provider
       value={{
-        user,
+        user: data,
         isLoading,
         setIsLoading,
-        refetchUserInformation: userData.refetch,
       }}
     >
       {children}

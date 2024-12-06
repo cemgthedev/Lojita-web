@@ -17,10 +17,6 @@ const messages = {
     invalid_type_complement: "Complemento inválido",
     required_error_cep: "CEP é obrigatório",
     invalid_type_cep: "CEP inválido",
-    required_error_linkMap: "URL do mapa é obrigatório",
-    invalid_type_linkMap: "URL do mapa inválida",
-    required_error_enterpriseId: "ID da empresa é obrigatório",
-    invalid_type_enterpriseId: "ID da empresa inválida",
 }
 
 export const updateAddressFormSchema = z
@@ -29,9 +25,7 @@ export const updateAddressFormSchema = z
         .string({
           required_error: messages.required_error_name,
           invalid_type_error: messages.invalid_type_name,
-        })
-        .optional()
-        .nullable(),
+        }),
       uf: z
         .string({
           required_error: messages.required_error_uf,
@@ -44,23 +38,17 @@ export const updateAddressFormSchema = z
         .string({
           required_error: messages.required_error_city,
           invalid_type_error: messages.invalid_type_city,
-        })
-        .optional()
-        .nullable(),
+        }),
       street: z
         .string({
           required_error: messages.required_error_street,
           invalid_type_error: messages.invalid_type_street,
-        })
-        .optional()
-        .nullable(),
+        }),
       neighborhood: z
         .string({
           required_error: messages.required_error_neighborhood,
           invalid_type_error: messages.invalid_type_neighborhood,
-        })
-        .optional()
-        .nullable(),
+        }),
       number: z
         .string({
           required_error: messages.required_error_number,
@@ -83,21 +71,4 @@ export const updateAddressFormSchema = z
         .min(8, { message: messages.invalid_type_cep })
         .optional()
         .nullable(),
-      linkMap: z
-        .string({
-          required_error: messages.required_error_linkMap,
-          invalid_type_error: messages.invalid_type_linkMap,
-        })
-        .url({ message: messages.invalid_type_linkMap })
-        .optional()
-        .nullable(),
-      enterpriseId: z
-        .number({
-          required_error: messages.required_error_enterpriseId,
-          invalid_type_error: messages.invalid_type_enterpriseId,
-        })
-        .optional()
-        .nullable(),
-    })
-    .optional()
-    .nullable();
+    });

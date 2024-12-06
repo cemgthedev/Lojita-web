@@ -51,19 +51,11 @@ export const UserDropdown = () => {
             className="h-14 gap-2 opacity-100"
           >
             <User
-              name={user?.name || "Sem nome"}
-              description={
-                (user?.email || "Sem email") +
-                " - " +
-                (user?.role || "Sem permissão")
-              }
+              name={user?.name}
+              description={user?.email}
               classNames={{
                 name: "text-default-600",
                 description: "text-default-500",
-              }}
-              avatarProps={{
-                size: "sm",
-                src: user?.avatarUrl,
               }}
             />
           </DropdownItem>
