@@ -1,21 +1,16 @@
 import { ENDPOINTS } from "@/constants/endpoints";
 import { api } from "@/services/api.service";
-import { TUserLogged } from "@/types/TUserLogged";
-
-type Credential = {
-  email: string;
-  password: string;
-};
+import { TCredential } from "@/types/TCredential";
+import { TUser } from "@/types/TUser";
 
 type AuthenticationResponse = {
-  access_token: string;
-  data: TUserLogged;
+  users: TUser[];
 };
 
-export const loginMutation = async (credential: Credential) => {
-  const { data } = await api.post<AuthenticationResponse>(ENDPOINTS.login, {
-    email: credential.email,
-    password: credential.password,
+export const loginMutation = async (credential: TCredential) => {
+  const { data } = await api.get<AuthenticationResponse>(ENDPOINTS.login, {
+    params: credential,
   });
-  return data;
+
+  return data.users[0];
 };

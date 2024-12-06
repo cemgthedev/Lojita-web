@@ -1,19 +1,19 @@
 import { ThemeSwitcher } from "@/components/ui/ThemeSwitcher";
 import {
-  ACCESS_TOKEN,
-  USER_LOGGED,
-  USER_PERMISSIONS,
+  ACCESS_TOKEN
 } from "@/constants/tokens";
 import { URLS } from "@/constants/urls";
+import { TUser } from "@/types/TUser";
 import { cache } from "@/utils/cache.util";
 import { notify } from "@/utils/notify.util";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
+import { Button, Card, CardBody, CardHeader, Input, Link, useDisclosure } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { CreateUser } from "./components/modals/CreateUser";
 import { loginMutation } from "./mutations/login.mutation";
 import {
   LoginFormData,
@@ -36,14 +36,9 @@ export const LoginPage = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: loginMutation,
-    onSuccess({ access_token, data }) {
-      cache.setValue(ACCESS_TOKEN, access_token);
-      cache.setValue(USER_LOGGED, JSON.stringify(data));
-      cache.setValue(
-        USER_PERMISSIONS,
-        JSON.stringify(data.permissionGroup.permissions)
-      );
-
+    onSuccess(user: TUser) {
+      cache.setValue(ACCESS_TOKEN, JSON.stringify({ email: user.email, password: user.password }));
+  
       navigate(URLS.dashboard);
     },
     onError() {
@@ -54,6 +49,12 @@ export const LoginPage = () => {
   const onHandleSubmit = handleSubmit((data) => {
     mutate(data);
   });
+
+  const {
+    isOpen: isOpenCreate,
+    onOpen: onOpenCreate,
+    onOpenChange: onOpenCreateChange,
+  } = useDisclosure();
 
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center bg-gradient-to-t from-[#075985] to-[#5B21B6]">
@@ -111,6 +112,11 @@ export const LoginPage = () => {
                 />
               </div>
 
+              <div className="flex gap-2">
+                <span>Não possui cadastro?</span>
+                <Link showAnchorIcon className="cursor-pointer" onClick={onOpenCreate}>Cadastre-se</Link>
+              </div>
+
               <div className="flex items-center justify-center">
                 <Button
                   type="submit"
@@ -125,6 +131,11 @@ export const LoginPage = () => {
           </form>
         </CardBody>
       </Card>
+
+      <CreateUser
+        isOpen={isOpenCreate}
+        onOpenChange={onOpenCreateChange}
+      />
     </section>
   );
 };

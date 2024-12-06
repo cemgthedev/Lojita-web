@@ -27,7 +27,9 @@ export default function Provider({ children }: ProviderProps) {
           defaultTheme="light"
           themes={["light", "dark", "purple-dark"]}
         >
-          <I18nProvider locale="pt-BR">{children}</I18nProvider>
+          <I18nProvider locale="pt-BR">
+              {children}
+          </I18nProvider>
           <ToastContainer />
         </NextThemesProvider>
       </NextUIProvider>

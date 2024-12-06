@@ -1,19 +1,12 @@
-import { RolesType } from "./enum/roles.enum";
 
 export interface TUser {
   id: number;
-  createdAt: Date;
-
   name: string;
+  age?: number;
+  cpf: string;
+  gender?: string;
+  phone_number?: string;
+  address: string;
   email: string;
-  password?: string;
-  avatarUrl?: string;
-  permissionGroupId: number;
-
-  permissionGroup?: {
-    id: number;
-    name: string;
-  };
-
-  role?: RolesType;
+  password: string;
 }

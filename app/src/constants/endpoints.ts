@@ -1,6 +1,6 @@
 export const ENDPOINTS = {
   enterprises: "/enterprise",
   users: "/users",
-  login: "/auth/login",
+  login: "/users",
   userInfo: "/users/me",
 } as const;
