@@ -12,30 +12,26 @@ export const URLS = {
   /**
    * @description Página de Meus Produtos
    */
-  my_products: "/my_products",
+  my_products: "/dashboard/my_products",
 
   /**
    * @description Página de Vendas
    */
-  sales: "/sales",
+  sales: "/dashboard//sales",
 
   /**
    * @description Página de Compras/Carrinho
    */
-  cart: "/cart",
+  cart: "/dashboard//cart",
 
   /**
    * @description Página de Favoritos
    */
-  favorites: "/favorites",
+  favorites: "/dashboard//favorites",
 
   /**
    * @description Página de Favoritos
    */
-  chats: "/chats",
+  chats: "/dashboard//chats",
   
-  /**
-   * @description Página de Empresas
-   */
-  enterprises: "enterprises",
 };
