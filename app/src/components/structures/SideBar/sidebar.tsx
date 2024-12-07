@@ -63,19 +63,9 @@ export default function Sidebar({
             }`}
           >
             {isCollapsed ? (
-              <img
-                src="/logo.svg"
-                alt="InoveAssessoria"
-                width={48}
-                height={48}
-              />
+              <p className="text-xl font-semibold text-purple-600">LJ</p>
             ) : (
-              <img
-                src="/logo.svg"
-                alt="InoveAssessoria"
-                width={48}
-                height={48}
-              />
+              <p className="text-xl font-semibold text-purple-600">Lojita</p>
             )}
           </div>
 

@@ -1,6 +1,6 @@
 
 export interface TUser {
-  id: number;
+  id: string;
   name: string;
   age?: number;
   cpf: string;

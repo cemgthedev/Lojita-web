@@ -1,9 +1,7 @@
 import { z } from "zod";
-import { updateAddressFormSchema } from "./update-address.schema";
+import { createAddressFormSchema } from "../../../validations/create-address.schema";
 
 const messages = {
-  required_error_id: "ID é obrigatório.",
-  invalid_type_id: "ID inválido.",
   required_error_name: "O nome do usuário é obrigatório.",
   invalid_type_name: "O nome deve ser uma string.",
   required_error_age: "A idade é obrigatória.",
@@ -24,12 +22,7 @@ const messages = {
   invalid_type_password_confirmation: "Senha de confirmação inválida",
 };
 
-export const updateUserFormSchema = z.object({
-  id: z
-    .string({
-      required_error: messages.required_error_id,
-      invalid_type_error: messages.invalid_type_id,
-    }),
+export const createUserFormSchema = z.object({
   name: z
     .string({
       required_error: messages.required_error_name,
@@ -39,8 +32,7 @@ export const updateUserFormSchema = z.object({
     .number({
       invalid_type_error: messages.invalid_type_age,
     })
-    .optional()
-    .nullable(),
+    .optional(),
   cpf: z
     .string({
       required_error: messages.required_error_cpf,
@@ -51,22 +43,20 @@ export const updateUserFormSchema = z.object({
     .string({
       invalid_type_error: messages.invalid_type_gender,
     })
-    .optional()
-    .nullable(),
+    .optional(),
   phone_number: z
     .string({
       invalid_type_error: messages.invalid_type_phone_number,
     })
-    .optional()
-    .nullable(),
-  address: updateAddressFormSchema,
+    .optional(),
+  address: createAddressFormSchema,
   email: z
     .string({
       required_error: messages.required_error_email,
       invalid_type_error: messages.invalid_type_email,
     })
     .email({ message: messages.invalid_type_email }),
-    password: z
+  password: z
     .string({
       required_error: messages.required_error_password,
       invalid_type_error: messages.invalid_type_password,
@@ -89,4 +79,4 @@ export const updateUserFormSchema = z.object({
     }
 });
 
-export type UpdateUserFormData = z.infer<typeof updateUserFormSchema>;
+export type CreateUserFormData = z.infer<typeof createUserFormSchema>;

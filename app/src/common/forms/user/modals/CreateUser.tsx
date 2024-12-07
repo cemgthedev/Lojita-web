@@ -1,18 +1,18 @@
-import { UserForm } from "@/common/forms/UserForm";
-import { CreateUserFormData, createUserFormSchema } from "@/common/validations/register-user.schema";
+import { UserForm } from "@/common/forms/user/UserForm";
+import { CreateUserFormData, createUserFormSchema } from "@/common/forms/user/validations/register-user.schema";
 import { notify } from "@/utils/notify.util";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    Button,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
 } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
-import { createUserMutation } from "../../mutations/register.mutation";
+import { createUserMutation } from "../mutations/user.mutation";
 
 interface CreateUserProps {
   isOpen: boolean;
@@ -42,7 +42,15 @@ export const CreateUser = ({ isOpen, onOpenChange }: CreateUserProps) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="3xl" classNames={{body: "max-h-[63vh] overflow-y-scroll"}}>
+      <Modal 
+        isOpen={isOpen} 
+        onOpenChange={onOpenChange} 
+        size="3xl" 
+        classNames={{
+          body: "max-h-[63vh] overflow-y-scroll",
+          backdrop: "bg-gradient-to-t from-[#075985] to-[#5B21B6]"
+        }}
+      >
         <ModalContent>
           {(onClose) => (
             <FormProvider {...methods}>
@@ -59,15 +67,15 @@ export const CreateUser = ({ isOpen, onOpenChange }: CreateUserProps) => {
                   <Button
                     type="button"
                     color="danger"
-                    variant="flat"
+                    variant="shadow"
                     onPress={onClose}
                   >
-                    Fechar
+                    Cancelar
                   </Button>
                   <Button
                     type="submit"
                     color="success"
-                    variant="flat"
+                    variant="shadow"
                     isLoading={mutateUserCreate.isPending}
                   >
                     Cadastrar

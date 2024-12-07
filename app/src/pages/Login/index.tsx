@@ -13,7 +13,7 @@ import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { CreateUser } from "./components/modals/CreateUser";
+import { CreateUser } from "../../common/forms/user/modals/CreateUser";
 import { loginMutation } from "./mutations/login.mutation";
 import {
   LoginFormData,
