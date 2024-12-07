@@ -1,7 +1,9 @@
+import { InfoProduct } from "@/common/forms/product/modals/InfoProduct";
 import { IFilterProducts, queryKeysProduct, searchProductQuery } from "@/common/queries/get-products.query";
 import { FilterProducts } from "@/components/ui/FilterProducts";
+import { TProduct } from "@/types/TProduct";
 import { Input } from "@nextui-org/input";
-import { Button, Card, CardBody, Image } from "@nextui-org/react";
+import { Button, Card, CardBody, Image, useDisclosure } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { useState } from "react";
@@ -24,6 +26,12 @@ export const DashboardPage = () => {
   const clearSubject = () => {
     setFilterProducts?.({ ...filterProducts, subject: undefined });
   };
+
+  const {
+    isOpen,
+    onOpen,
+    onOpenChange,
+  } = useDisclosure();
   
   return (
     <section className="flex flex-col gap-4 m-4">
@@ -56,35 +64,43 @@ export const DashboardPage = () => {
 
       <div className="flex gap-4 flex-wrap">
         {products?.map((product) => (
-          <Card key={product.id} classNames={{base: "border-1 border-default-800", body: "px-0 pt-0 gap-3"}}>
-            <CardBody>
-              <div className="border-b-1 border-default-800">
-                <Image
-                  alt="Imagem do produto"
-                  fallbackSrc={"/image-off.svg"}
-                  height={216}
-                  src={product.image_url}
-                  width={256}
-                  className="w-[256px] h-[216px] border-2 border-default-800"
-                />
-              </div>
-              <div className="flex flex-col gap-1 px-4 w-[256px]">
-                <p className="line-clamp-1 text-lg font-semibold">{product.title}</p>
-                <p className="line-clamp-2">{product.description}</p>
-                <p>{product.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
-              </div>
-              <div className="px-4">
-                <Button
-                  fullWidth
-                  type="button"
-                  color="secondary"
-                  variant="shadow"
-                >
-                  ver detalhes
-                </Button>
-              </div>
-            </CardBody>
-          </Card>
+          <div key={product.id}>
+            <Card classNames={{base: "border-1 border-default-800", body: "px-0 pt-0 gap-3"}}>
+              <CardBody>
+                <div className="border-b-1 border-default-800">
+                  <Image
+                    alt="Imagem do produto"
+                    fallbackSrc={"/image-off.svg"}
+                    height={216}
+                    src={product.image_url}
+                    width={256}
+                    className="w-[256px] h-[216px] border-2 border-default-800"
+                  />
+                </div>
+                <div className="flex flex-col gap-1 px-4 w-[256px]">
+                  <p className="line-clamp-1 text-lg font-semibold">{product.title}</p>
+                  <p className="line-clamp-2">{product.description}</p>
+                  <p>{product.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+                </div>
+                <div className="px-4">
+                  <Button
+                    fullWidth
+                    type="button"
+                    color="secondary"
+                    variant="shadow"
+                    onClick={onOpen}
+                  >
+                    ver detalhes
+                  </Button>
+                </div>
+              </CardBody>
+            </Card>
+            <InfoProduct
+              isOpen={isOpen}
+              onOpenChange={onOpenChange}
+              item={product as TProduct}
+            />
+          </div>
         ))}
       </div>
     </section>
