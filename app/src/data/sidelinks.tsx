@@ -1,17 +1,11 @@
 import { URLS } from "@/constants/urls";
 import {
-  ArchiveRestore,
-  Building,
-  Building2Icon,
-  CalendarPlus2Icon,
-  ChartAreaIcon,
-  ChartBarBig,
-  CopyPlusIcon,
-  FileKey2,
-  GroupIcon,
+  CircleDollarSign,
+  HandCoins,
+  Heart,
   LayoutDashboardIcon,
-  ShieldPlusIcon,
-  UserPlus2Icon,
+  MessageCircle,
+  ShoppingBasket
 } from "lucide-react";
 
 export interface NavLink {
@@ -35,71 +29,33 @@ export const sidelinks: SideLink[] = [
     icon: <LayoutDashboardIcon size={18} />,
   },
   {
-    title: "Analise de Desempenho",
+    title: "Meus Produtos",
     label: "",
-    href: URLS.overall_performances,
-    icon: <ChartAreaIcon size={18} />,
+    href: URLS.my_products,
+    icon: <ShoppingBasket size={18} />,
   },
   {
-    title: "Desempenho por Turma",
+    title: "Vendas",
     label: "",
-    href: URLS.evaluations,
-    icon: <ChartBarBig size={18} />,
+    href: URLS.sales,
+    icon: <HandCoins size={18} />,
   },
   {
-    title: "Avaliações PDFs",
+    title: "Compras",
     label: "",
-    href: URLS.proofs,
-    icon: <ArchiveRestore size={18} />,
+    href: URLS.cart,
+    icon: <CircleDollarSign size={18} />,
   },
   {
-    title: "Cadastros",
+    title: "Favoritos",
     label: "",
-    href: "",
-    icon: <CopyPlusIcon size={18} />,
-    sub: [
-      {
-        title: "Permissões",
-        label: "",
-        href: URLS.permission_groups,
-        icon: <ShieldPlusIcon size={18} />,
-      },
-      {
-        title: "Empresas",
-        label: "",
-        href: URLS.enterprises,
-        icon: <Building2Icon size={18} />,
-      },
-      {
-        title: "Instituições",
-        label: "",
-        href: URLS.institutions,
-        icon: <Building size={18} />,
-      },
-      {
-        title: "Representantes",
-        label: "",
-        href: URLS.representatives,
-        icon: <UserPlus2Icon size={18} />,
-      },
-      {
-        title: "Tipos de Avaliação",
-        label: "",
-        href: URLS.evaluation_types,
-        icon: <FileKey2 size={18} />,
-      },
-      {
-        title: "Bimestres",
-        label: "",
-        href: URLS.bimesters,
-        icon: <CalendarPlus2Icon size={18} />,
-      },
-      {
-        title: "Turmas",
-        label: "",
-        href: URLS.school_classes,
-        icon: <GroupIcon size={18} />,
-      },
-    ],
+    href: URLS.favorites,
+    icon: <Heart size={18} />,
+  },
+  {
+    title: "Chats",
+    label: "",
+    href: URLS.chats,
+    icon: <MessageCircle size={18} />,
   },
 ];

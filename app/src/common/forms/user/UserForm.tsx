@@ -1,3 +1,4 @@
+import { CreateUserFormData } from "@/common/forms/user/validations/register-user.schema";
 import { getGenderOptions } from "@/data/getGenderOptions";
 import {
   Accordion,
@@ -7,7 +8,6 @@ import {
   Input
 } from "@nextui-org/react";
 import { Controller, useFormContext } from "react-hook-form";
-import { CreateUserFormData } from "../validations/register-user.schema";
 
 export const UserForm = () => {
   const {

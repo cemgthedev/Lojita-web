@@ -10,51 +10,32 @@ export const URLS = {
   dashboard: "/dashboard",
 
   /**
-   * @description Página de avaliação geral
+   * @description Página de Meus Produtos
    */
-  overall_performances: "overall-performances",
+  my_products: "/my_products",
 
   /**
-   * @description Página de Avaliações por Turma
+   * @description Página de Vendas
    */
-  evaluations: "evaluations",
+  sales: "/sales",
 
   /**
-   * @description Página de Avaliações PDFs
+   * @description Página de Compras/Carrinho
    */
-  proofs: "proofs",
+  cart: "/cart",
 
   /**
-   * @description Página de Grupo de Permissões
+   * @description Página de Favoritos
    */
-  permission_groups: "permission-groups",
+  favorites: "/favorites",
+
+  /**
+   * @description Página de Favoritos
+   */
+  chats: "/chats",
+  
   /**
    * @description Página de Empresas
    */
   enterprises: "enterprises",
-
-  /**
-   * @description Página de Instituições
-   */
-  institutions: "institutions",
-
-  /**
-   * @description Página de Representantes
-   */
-  representatives: "representatives",
-
-  /**
-   * @description Página de tipo de avaliação
-   */
-  evaluation_types: "evaluation-types",
-
-  /**
-   * @description Página de Bimestres
-   */
-  bimesters: "bimesters",
-
-  /**
-   * @description Página de Cursos
-   */
-  school_classes: "school-classes",
 };
