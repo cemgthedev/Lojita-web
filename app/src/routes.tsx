@@ -3,10 +3,10 @@ import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRouter } from "./components/ui/ProtectedRouter";
 import { URLS } from "./constants/urls";
 import { DashboardPage } from "./pages/Dashboard";
-import { EnterprisesPage } from "./pages/Enterprises";
 import GeneralError from "./pages/errors/general-error";
 import NotFoundError from "./pages/errors/not-found-error";
 import { LoginPage } from "./pages/Login";
+import { MyProductsPage } from "./pages/MyProducts";
 
 const router = createBrowserRouter([
   // Auth routes
@@ -22,12 +22,12 @@ const router = createBrowserRouter([
       {
         path: URLS.dashboard,
         element: <DashboardPage />,
-        index: true,
+       
       },
       {
-        path: URLS.enterprises,
-        element: <EnterprisesPage />,
-      },
+        path: URLS.my_products,
+        element: <MyProductsPage />,
+      }
     ],
   },
   { path: "*", Component: NotFoundError },
