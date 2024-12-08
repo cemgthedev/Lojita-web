@@ -1,4 +1,5 @@
 import { IFilterProducts } from "@/common/queries/get-products.query";
+import { getCategoryOptions } from "@/data/getCategoryOptions";
 import { Autocomplete, AutocompleteItem, Button, Input, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import { Box, ChartBar, DollarSign, Filter } from "lucide-react";
 
@@ -8,15 +9,18 @@ interface FilterProductsProps {
 }
 
 export function FilterProducts({ filterProducts, setFilterProducts }: FilterProductsProps) {
+    const categoriesOptions = getCategoryOptions();
+    
     return (
         <Popover showArrow offset={10} placement="bottom">
             <PopoverTrigger>
                 <Button
                     variant="flat"
                     isIconOnly
-                    startContent={<Filter className="h-5 w-5" />}
                     className="bg-default-900 text-default-50"
-                />
+                >
+                    <Filter className="h-5 w-5" />
+                </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[400px] max-md:w-full">
                 {(titleProps) => (
@@ -29,18 +33,17 @@ export function FilterProducts({ filterProducts, setFilterProducts }: FilterProd
                                 size="sm" 
                                 label="Selecione uma categoria" 
                                 startContent={<ChartBar className="h-5 w-5" />}
+                                defaultItems={categoriesOptions}
                                 defaultSelectedKey={filterProducts?.category}
                                 onSelectionChange={(category) => {
-                                    console.log(category)
                                     setFilterProducts?.({ ...filterProducts, category: category?.toString() })
                                 }}
                             >
-                                <AutocompleteItem key={"Moda Masculina"} value={"Moda Masculina"}>Moda Masculina</AutocompleteItem>
-                                <AutocompleteItem key={"Moda Feminina"} value={"Moda Feminina"}>Moda Feminina</AutocompleteItem>
-                                <AutocompleteItem key={"Esporte"} value={"Esporte"}>Esporte</AutocompleteItem>
-                                <AutocompleteItem key={"Tecnologia"} value={"Tecnologia"}>Tecnologia</AutocompleteItem>
-                                <AutocompleteItem key={"Veículos"} value={"Veículos"}>Veículos</AutocompleteItem>
-                                <AutocompleteItem key={"Mobília"} value={"Mobília"}>Mobília</AutocompleteItem>
+                                {(category) => (
+                                <AutocompleteItem key={category.value} value={category.value}>
+                                    {category.label}
+                                </AutocompleteItem>
+                                )}
                             </Autocomplete>
                             <div className="flex gap-2">
                                 <Input

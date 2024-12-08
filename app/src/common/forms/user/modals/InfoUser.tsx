@@ -63,9 +63,7 @@ export const InfoUser = ({
         isOpen={isOpen} 
         onOpenChange={onOpenChange} 
         size="lg" 
-        classNames={{
-            backdrop: "bg-gradient-to-t from-[#075985] to-[#5B21B6]"
-        }}
+        backdrop="blur"
       >
         <ModalContent>
             <ModalHeader className="flex flex-col gap-1">

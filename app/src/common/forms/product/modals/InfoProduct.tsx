@@ -33,6 +33,7 @@ export const InfoProduct = ({
         onOpenChange={onOpenChange} 
         size="lg" 
         backdrop="blur"
+        classNames={{ body: "max-h-[63vh] overflow-y-scroll" }}
       >
         <ModalContent>
             <ModalHeader className="flex flex-col gap-1">
@@ -42,7 +43,7 @@ export const InfoProduct = ({
             <ModalBody>
                 <Card shadow="none" classNames={{body: "bg-none px-0 pt-0 gap-3"}}>
                 <CardBody>
-                    <div className="border-1 border-default-800 rounded-lg flex justify-center overflow-auto">
+                    <div className="flex justify-center overflow-auto">
                         <Image
                             alt="Imagem do produto"
                             fallbackSrc={"/image-off.svg"}
@@ -65,24 +66,28 @@ export const InfoProduct = ({
                             <p className="text-lg font-semibold">Quantidade desejada</p>
                             <div className="flex gap-2">
                                 <Button
+                                    size="sm"
                                     type="button"
                                     variant="flat"
                                     isIconOnly
                                     onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-                                    startContent={<MinusCircle className="h-5 w-5" />}
                                     className="bg-background rounded-full border-1 border-default-800"
-                                />
-                                <div className="flex items-center py-1 px-2 rounded-md border-1 border-default-800">
-                                    <p>{quantity}</p>
+                                >
+                                    <MinusCircle className="h-5 w-5" />
+                                </Button>
+                                <div className="flex items-center py-0 px-2 rounded-md border-1 border-default-800">
+                                    <p className="p-0">{quantity}</p>
                                 </div>
                                 <Button
+                                    size="sm"
                                     type="button"
                                     variant="flat"
                                     isIconOnly
                                     onClick={() => setQuantity(quantity + 1)}
-                                    startContent={<PlusCircle className="h-5 w-5" />}
                                     className="bg-background rounded-full border-1 border-default-800"
-                                />
+                                >
+                                    <PlusCircle className="h-5 w-5" />
+                                </Button>
                             </div>
                         </div>
 
