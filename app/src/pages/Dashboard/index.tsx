@@ -32,6 +32,13 @@ export const DashboardPage = () => {
     onOpen,
     onOpenChange,
   } = useDisclosure();
+
+  const [selectedItem, setSelectedItem] = useState<TProduct>();
+
+  const onSelectItem = (product: TProduct) => {
+    setSelectedItem(product);
+    onOpen();
+  };
   
   return (
     <section className="flex flex-col gap-4 m-4">
@@ -64,45 +71,48 @@ export const DashboardPage = () => {
 
       <div className="flex gap-4 flex-wrap">
         {products?.map((product) => (
-          <div key={product.id}>
-            <Card classNames={{base: "border-1 border-default-800", body: "px-0 pt-0 gap-3"}}>
-              <CardBody>
-                <div className="border-b-1 border-default-800">
-                  <Image
-                    alt="Imagem do produto"
-                    fallbackSrc={"/image-off.svg"}
-                    height={216}
-                    src={product.image_url}
-                    width={256}
-                    className="w-[256px] h-[216px] border-2 border-default-800"
-                  />
-                </div>
-                <div className="flex flex-col gap-1 px-4 w-[256px]">
-                  <p className="line-clamp-1 text-lg font-semibold">{product.title}</p>
-                  <p className="line-clamp-2">{product.description}</p>
-                  <p>{product.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
-                </div>
-                <div className="px-4">
-                  <Button
-                    fullWidth
-                    type="button"
-                    color="secondary"
-                    variant="shadow"
-                    onClick={onOpen}
-                  >
-                    ver detalhes
-                  </Button>
-                </div>
-              </CardBody>
-            </Card>
-            <InfoProduct
-              isOpen={isOpen}
-              onOpenChange={onOpenChange}
-              item={product as TProduct}
-            />
-          </div>
+          <Card key={product.id} classNames={{base: "border-1 border-default-800", body: "px-0 pt-0 gap-3"}}>
+            <CardBody>
+              <div className="border-b-1 border-default-800">
+                <Image
+                  alt="Imagem do produto"
+                  fallbackSrc={"/image-off.svg"}
+                  height={216}
+                  src={product.image_url}
+                  width={256}
+                  className="w-[256px] h-[216px] rounded-none"
+                />
+              </div>
+              <div className="flex flex-col gap-1 px-4 w-[256px] min-h-[108px] max-h-[108px]">
+                <p className="line-clamp-1 text-lg font-semibold">{product.title}</p>
+                <p className="line-clamp-2">{product.description}</p>
+                <p>{product.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+              </div>
+              <div className="px-4">
+                <Button
+                  fullWidth
+                  type="button"
+                  color="secondary"
+                  variant="shadow"
+                  onClick={() => onSelectItem(product)}
+                >
+                  ver detalhes
+                </Button>
+              </div>
+            </CardBody>
+          </Card>
         ))}
       </div>
+      
+      {
+        selectedItem && (
+          <InfoProduct
+            isOpen={isOpen}
+            onOpenChange={onOpenChange}
+            item={selectedItem as TProduct}
+          />
+        )
+      }
     </section>
   );
 };
