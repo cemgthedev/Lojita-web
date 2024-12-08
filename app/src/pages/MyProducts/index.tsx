@@ -17,7 +17,7 @@ import { TableProducts } from "./components/table";
 
 export const MyProductsPage = () => {
   const { user } = useAuthentication();
-  const [filterProducts, setFilterProducts] = useState<IFilterProducts>({seller_id: user?.id});
+  const [filterProducts, setFilterProducts] = useState<IFilterProducts>({});
 
   const [editItem, setEditItem] = useState<TProduct>();
 
@@ -46,9 +46,10 @@ export const MyProductsPage = () => {
     queryKey: [
       queryKeysProduct.get_list_products + "my",
       filterProducts,
+      user
     ],
     queryFn: async () => {
-      const enterpriseResponse = await searchProductQuery(filterProducts);
+      const enterpriseResponse = await searchProductQuery({...filterProducts, seller_id: user?.id});
 
       return Array.isArray(enterpriseResponse.products) ? enterpriseResponse.products : [];
     },
