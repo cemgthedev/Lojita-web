@@ -6,7 +6,7 @@ export const Header = () => {
             <div className="bg-purple-600 text-slate-50 flex justify-center">
                 <p className=" text-sm">O melhor marketplace no menor frasco.</p>
             </div>
-            <div className="bg-purple-200">
+            <div className="bg-purple-200 dark:bg-zinc-800">
                 <Navbar />
             </div>
         </header>

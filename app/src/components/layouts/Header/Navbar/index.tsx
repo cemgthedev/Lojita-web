@@ -16,7 +16,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 
 export const Navbar = () => {
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky">
+    <HeroUINavbar maxWidth="xl" position="sticky" className="bg-transparent">
       <NavbarContent className="md:hidden">
         <NavbarMenuToggle />
       </NavbarContent>
@@ -57,7 +57,7 @@ export const Navbar = () => {
         <ThemeSwitch />
       </NavbarContent>
 
-      <NavbarMenu>
+      <NavbarMenu className="mt-4">
         <div className="px-6 py-4 flex flex-col gap-2">
           {siteConfig.navItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>

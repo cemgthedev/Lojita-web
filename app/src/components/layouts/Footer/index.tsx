@@ -4,7 +4,7 @@ import { ExternalLinkIcon } from "lucide-react";
 
 export const Footer = () => {
     return (
-      <footer className="bg-purple-200 border-t border-purple-600 w-full flex items-center justify-center p-6">
+      <footer className="bg-purple-200 dark:bg-zinc-800 border-t border-purple-600 w-full flex items-center justify-center p-6">
         <Link
           isExternal
           className="flex items-center gap-2 text-current text-center"
