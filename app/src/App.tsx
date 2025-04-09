@@ -1,19 +1,23 @@
 import { Route, Routes } from "react-router-dom";
 
-import IndexPage from "@/pages/index";
-import DocsPage from "@/pages/docs";
-import PricingPage from "@/pages/pricing";
-import BlogPage from "@/pages/blog";
-import AboutPage from "@/pages/about";
+import ChatsPage from "@/pages/Chats";
+import DashboardPage from "@/pages/Dashboard/index";
+import OrdersPage from "@/pages/Orders";
+import BlogPage from "@/pages/Products";
+import VariantsPage from "@/pages/Variants";
+import DefaultLayout from "./components/layouts/DefaultLayout";
+import { Endpoints } from "./constants/frontend/endpoints";
 
 function App() {
   return (
     <Routes>
-      <Route element={<IndexPage />} path="/" />
-      <Route element={<DocsPage />} path="/docs" />
-      <Route element={<PricingPage />} path="/pricing" />
-      <Route element={<BlogPage />} path="/blog" />
-      <Route element={<AboutPage />} path="/about" />
+      <Route element={<DefaultLayout />} path={Endpoints.dashboard}>
+        <Route index element={<DashboardPage />} />
+        <Route element={<OrdersPage />} path={Endpoints.orders} />
+        <Route element={<ChatsPage />} path={Endpoints.chats} />
+        <Route element={<BlogPage />} path={Endpoints.products} />
+        <Route element={<VariantsPage />} path={Endpoints.variants} />
+      </Route>
     </Routes>
   );
 }
