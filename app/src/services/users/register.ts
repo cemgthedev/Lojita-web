@@ -1,7 +1,7 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, User } from "firebase/auth";
 import { auth } from "../api";
 
-export async function register(email: string, password: string) {
+export async function register(email: string, password: string): Promise<User> {
     try {
         const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredentials.user;
