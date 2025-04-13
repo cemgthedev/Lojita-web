@@ -1,6 +1,6 @@
 import { auth } from "@/services/api";
-import { deleteUser } from "@/services/users/delete";
-import { register } from "@/services/users/register";
+import { deleteUser } from "@/services/auth/delete";
+import { register } from "@/services/auth/register";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 

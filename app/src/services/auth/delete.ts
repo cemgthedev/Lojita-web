@@ -1,6 +1,6 @@
 import { auth } from "../api";
 
-export async function deleteUser(): Promise<boolean> {
+export async function deleteAuthUser(): Promise<boolean> {
     try {
         if(auth.currentUser) {
             await auth.currentUser.delete();

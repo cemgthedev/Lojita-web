@@ -1,9 +1,9 @@
 import { auth } from "@/services/api";
-import { login } from "@/services/users/login";
+import { login } from "@/services/auth/login";
 import {
-    createUserWithEmailAndPassword,
-    deleteUser,
-    signInWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  deleteUser,
+  signInWithEmailAndPassword
 } from "firebase/auth";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
