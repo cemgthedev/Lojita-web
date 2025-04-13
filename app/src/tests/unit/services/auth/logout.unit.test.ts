@@ -1,4 +1,4 @@
-import { logout } from "@/services/users/logout";
+import { logout } from "@/services/auth/logout";
 import { describe, expect, it } from "vitest";
 
 describe("Modulo de logout", () => {
