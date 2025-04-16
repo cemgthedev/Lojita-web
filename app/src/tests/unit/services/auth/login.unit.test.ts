@@ -1,17 +1,12 @@
 import { auth } from "@/services/api";
 import { login } from "@/services/auth/login";
+import { TEST_CREDENTIALS } from "@/tests/data";
 import {
   createUserWithEmailAndPassword,
   deleteUser,
   signInWithEmailAndPassword
 } from "firebase/auth";
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
-
-// Dados de teste mais seguros
-const TEST_CREDENTIALS = {
-  email: `test.${Date.now()}@example.com`, // Email único por teste
-  password: "testpassword123@kwy!"
-};
 
 describe("Módulo de login", () => {
   // Configuração inicial
