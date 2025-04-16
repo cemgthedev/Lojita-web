@@ -5,10 +5,10 @@ import { register } from "../auth/register";
 
 export async function createUser({avatarUrl, name, document, age, gender, phone, address, email, password, role}: TUser) {
     try {
-        const user = await register(email, password);
+        const userCredentials = await register(email, password);
 
-        await setDoc(doc(db, "users", user.uid), {
-            id: user.uid,
+        await setDoc(doc(db, "users", userCredentials.uid), {
+            id: userCredentials.uid,
             avatarUrl: avatarUrl,
             name: name,
             document: document,
