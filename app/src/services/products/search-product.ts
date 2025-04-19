@@ -15,6 +15,7 @@ interface ProductFilters {
   maxCreatedAt?: Date;
   minUpdatedAt?: Date;
   maxUpdatedAt?: Date;
+  sellerId?: string;
 }
 
 export async function searchProduct(
@@ -31,31 +32,38 @@ export async function searchProduct(
       );
     }
 
-    if (filters.minPrice !== undefined) {
+    if (filters.minPrice) {
       productsQuery = query(
         productsQuery,
         where('price', '>=', filters.minPrice),
       );
     }
 
-    if (filters.maxPrice !== undefined) {
+    if (filters.maxPrice) {
       productsQuery = query(
         productsQuery,
         where('price', '<=', filters.maxPrice),
       );
     }
 
-    if (filters.minStock !== undefined) {
+    if (filters.minStock) {
       productsQuery = query(
         productsQuery,
         where('stock', '>=', filters.minStock),
       );
     }
 
-    if (filters.maxStock !== undefined) {
+    if (filters.maxStock) {
       productsQuery = query(
         productsQuery,
         where('stock', '<=', filters.maxStock),
+      );
+    }
+
+    if (filters.sellerId) {
+      productsQuery = query(
+        productsQuery,
+        where('sellerId', '==', filters.sellerId),
       );
     }
 
