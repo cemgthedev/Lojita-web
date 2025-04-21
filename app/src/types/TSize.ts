@@ -1,14 +1,3 @@
-export type TColor = {
-  id?: string;
-  name: string;
-  hex: string;
-
-  sellerId: string;
-
-  createdAt?: Date;
-  updatedAt?: Date;
-};
-
 export type MeasurementUnit =
   | { type: 'length'; value: 'cm' | 'm' | 'inch' } // Comprimento
   | { type: 'weight'; value: 'kg' | 'g' | 'lb' } // Peso
@@ -31,5 +20,3 @@ export const Units = {
   weight: ['kg', 'g', 'lb'] as const,
   volume: ['ml', 'l', 'gal'] as const,
 };
-
-export type TProductOption = TColor | TSize;
