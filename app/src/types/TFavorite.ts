@@ -1,12 +1,12 @@
-import { TProductItem } from "./TProduct";
+import { TProductItem } from './TProduct';
 
 export type TFavorite = {
-    id?: string;
-    products: TProductItem[]
+  id?: string;
+  products: TProductItem[];
 
-    sellerId: string;
-    buyerId: string;
+  sellerId: string;
+  buyerId: string;
 
-    createdAt?: Date;
-    updatedAt?: Date;
-}
+  createdAt?: Date;
+  updatedAt?: Date;
+};

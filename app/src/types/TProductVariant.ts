@@ -1,15 +1,15 @@
-import { TColor, TSize } from "./TProductOption";
+import { TColor, TSize } from './TProductOption';
 
 export type TProductVariant = {
-    id?: string;
-    name: string;
-    color: TColor;
-    size: TSize;
-    price: number;
-    stock: number;
+  id?: string;
+  name: string;
+  color: TColor;
+  size: TSize;
+  price: number;
+  stock: number;
 
-    sellerId: string;
+  sellerId: string;
 
-    createdAt?: Date
-    updatedAt?: Date
-}
+  createdAt?: Date;
+  updatedAt?: Date;
+};
