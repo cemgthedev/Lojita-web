@@ -1,16 +1,16 @@
-import { TProductItem } from "./TProduct";
+import { TProductItem } from './TProduct';
 
-export type TStatus = "pending" | "processing" | "delivered" | "cancelled";
+export type TStatus = 'pending' | 'processing' | 'delivered' | 'cancelled';
 
 export type TOrder = {
-    id?: string;
-    status: TStatus;
-    price: number;
-    products: TProductItem[];
+  id?: string;
+  status: TStatus;
+  price: number;
+  products: TProductItem[];
 
-    sellerId: string;
-    buyerId: string;
+  sellerId: string;
+  buyerId: string;
 
-    createdAt?: Date;
-    updatedAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
