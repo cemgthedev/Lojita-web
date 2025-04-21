@@ -2,11 +2,13 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
+import { Collections } from '@/constants/firebase/collections';
 import { auth, db } from '@/services/api';
-import { TEST_USER } from '@/tests/data';
+import { createUser } from '@/services/users/create-user';
+import { TEST_CREDENTIALS, TEST_USER } from '@/tests/data';
 import { TUser } from '@/types/TUser';
 
 describe('Modulo de criação de usuário', () => {
@@ -14,13 +16,13 @@ describe('Modulo de criação de usuário', () => {
     try {
       await createUserWithEmailAndPassword(
         auth,
-        TEST_USER.email,
-        TEST_USER.password,
+        TEST_CREDENTIALS.email,
+        TEST_CREDENTIALS.password,
       );
       await signInWithEmailAndPassword(
         auth,
-        TEST_USER.email,
-        TEST_USER.password,
+        TEST_CREDENTIALS.email,
+        TEST_CREDENTIALS.password,
       );
     } catch (error) {
       console.error(error);
@@ -30,14 +32,20 @@ describe('Modulo de criação de usuário', () => {
   afterAll(async () => {
     try {
       await auth.currentUser?.delete();
+      await signInWithEmailAndPassword(
+        auth,
+        TEST_USER.email,
+        TEST_USER.password,
+      );
       await deleteDoc(doc(db, 'users', TEST_USER.id));
+      await auth.currentUser?.delete();
     } catch (error) {
       console.error(error);
     }
   });
 
   it('Deve criar e retornar um novo usuário', async () => {
-    await setDoc(doc(db, 'users', TEST_USER.id), {
+    createUser({
       id: TEST_USER.id,
       avatarUrl: TEST_USER.avatarUrl,
       name: TEST_USER.name,
@@ -52,7 +60,7 @@ describe('Modulo de criação de usuário', () => {
       createdAt: new Date(),
     } as TUser);
 
-    const userDoc = await getDoc(doc(db, 'users', TEST_USER.id));
+    const userDoc = await getDoc(doc(db, Collections.users, TEST_USER.id));
     const user = userDoc.data() as TUser;
 
     expect(user).toBeDefined();
