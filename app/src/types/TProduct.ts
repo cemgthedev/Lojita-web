@@ -1,5 +1,6 @@
-import { MeasurementUnit, TColor, TSize } from './TProductOption';
+import { TColor } from './TColor';
 import { TProductVariant } from './TProductVariant';
+import { MeasurementUnit, TSize } from './TSize';
 
 export type TProduct = {
   id?: string;

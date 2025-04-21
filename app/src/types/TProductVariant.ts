@@ -1,4 +1,5 @@
-import { TColor, TSize } from './TProductOption';
+import { TColor } from './TColor';
+import { TSize } from './TSize';
 
 export type TProductVariant = {
   id?: string;
