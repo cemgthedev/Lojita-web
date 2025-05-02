@@ -1,9 +1,4 @@
-export type TMessage = {
-  content: string;
-
-  createdAt: Date;
-  updatedAt?: Date;
-};
+import { TMessage } from './TMessage';
 
 export type TChat = {
   id?: string;
