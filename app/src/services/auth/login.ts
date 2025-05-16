@@ -1,19 +1,17 @@
-import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
+import { signInWithEmailAndPassword, User } from 'firebase/auth';
 
 import { auth } from '../api';
 
-export async function login(
-  email: string,
-  password: string,
-): Promise<UserCredential> {
-  try {
-    const userCredentials = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password,
-    );
+import { TCredentials } from '@/types/TCredentials';
 
-    return userCredentials;
+export interface LoginResponse {
+  user: User;
+  token: string;
+}
+
+export async function login({ email, password }: TCredentials): Promise<void> {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     throw error;
   }
