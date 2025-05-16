@@ -78,11 +78,11 @@ export function LoginForm() {
         </div>
         <div className="flex items-center justify-center">
           <Button
-            className="w-1/2 text-lg font-semibold"
+            className="w-1/2 text-lg font-semibold shadow-md shadow-primary/60"
             color="primary"
             isLoading={isPending}
             type="submit"
-            variant="shadow"
+            variant="solid"
           >
             Entrar
           </Button>
