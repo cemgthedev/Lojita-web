@@ -9,7 +9,7 @@ import { useAuthentication } from '@/providers/Authentication.provider';
 import { auth } from '@/services/api';
 
 export function ProtectedRoutes() {
-  const { user, setUser, isLoading } = useAuthentication();
+  const { user, isLoading } = useAuthentication();
   const navigate = useNavigate();
   const { state: navigationState } = useNavigation();
 
