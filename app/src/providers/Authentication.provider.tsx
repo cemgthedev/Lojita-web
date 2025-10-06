@@ -1,20 +1,30 @@
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { usersMock } from '@/mock/users';
+import { TCredentials } from '@/types/TCredentials';
+import { TUser } from '@/types/TUser';
 import {
   createContext,
   Dispatch,
+  ReactNode,
   SetStateAction,
   useContext,
-  useEffect,
   useState,
 } from 'react';
 
-import { auth } from '@/services/api';
+export type LoginResponse =
+  | {
+      user: TUser;
+      token: string;
+    }
+  | undefined;
 
 interface IContextAuthentication {
-  user: User | null;
-  setUser: Dispatch<SetStateAction<User | null>>;
+  user: TUser | null;
+  setUser: Dispatch<SetStateAction<TUser | null>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+
+  login: (credentials: TCredentials) => Promise<LoginResponse | undefined>;
+  logout: () => Promise<boolean>;
 }
 
 const contextAuthentication = createContext({} as IContextAuthentication);
@@ -26,21 +36,39 @@ export function useAuthentication() {
 }
 
 interface IProviderAuthentication {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function ProviderAuthentication({ children }: IProviderAuthentication) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<TUser | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser);
-      setIsLoading(false); // Sinaliza que a verificação inicial foi concluída
+  const login = async ({
+    email,
+    password,
+  }: TCredentials): Promise<LoginResponse> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const user: TUser | undefined = usersMock.find(
+          (user) => user.email === email && user.password === password,
+        );
+
+        if (user) {
+          resolve({ user, token: 'token' });
+        } else {
+          resolve(undefined);
+        }
+      }, 2000);
     });
+  };
 
-    return unsubscribe;
-  }, []);
+  const logout = async (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 2000);
+    });
+  };
 
   return (
     <contextAuthentication.Provider
@@ -49,6 +77,8 @@ export function ProviderAuthentication({ children }: IProviderAuthentication) {
         setUser,
         isLoading,
         setIsLoading,
+        login,
+        logout,
       }}
     >
       {children}

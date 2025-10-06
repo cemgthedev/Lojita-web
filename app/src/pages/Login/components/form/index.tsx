@@ -15,13 +15,11 @@ import { InputCustom } from '@/components/common/Inputs/InputCustom';
 import { PasswordInput } from '@/components/common/Inputs/PasswordInput';
 import { Endpoints } from '@/constants/frontend/endpoints';
 import { useAuthentication } from '@/providers/Authentication.provider';
-import { auth } from '@/services/api';
-import { login } from '@/services/auth/login';
 import { TCredentials } from '@/types/TCredentials';
 
 export function LoginForm() {
   const navigate = useNavigate();
-  const { setUser, setIsLoading } = useAuthentication();
+  const { setUser, setIsLoading, login } = useAuthentication();
 
   const {
     register,
@@ -33,11 +31,21 @@ export function LoginForm() {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: login,
-    onSuccess() {
-      setUser(auth.currentUser);
+    mutationFn: async (credentials: TCredentials) => {
+      const response = await login(credentials);
+      console.log(response);
+      return response;
+    },
+    onSuccess(data) {
+      const { user } = data ?? {};
 
-      navigate(Endpoints.dashboard);
+      if (user) {
+        console.log(user);
+        setUser(user);
+        navigate(Endpoints.dashboard);
+      } else {
+        navigate(Endpoints.login);
+      }
     },
     onError() {
       addToast({
