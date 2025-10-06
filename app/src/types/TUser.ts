@@ -9,7 +9,13 @@ export const Genders = {
   other: { name: 'Outro', value: 'other' } as TGenders,
 };
 
-export type TGroupPermission = 'admin' | 'client';
+export enum ERoles {
+  admin = 'admin',
+  seller = 'seller',
+  buyer = 'buyer',
+}
+
+export type TGroupPermission = ERoles.admin | ERoles.seller | ERoles.buyer;
 
 export type TUser = {
   id?: string;
