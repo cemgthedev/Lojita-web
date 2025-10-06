@@ -5,6 +5,7 @@ Aplicação web de marketplace para administrador, vendedores e compradores. Est
 - Vite
 - React
 - React Hook Form
+- React Query
 - React Router DOM
 - TypeScript
 - Zod
