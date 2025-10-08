@@ -1,7 +1,7 @@
 import { Button } from '@heroui/button';
 import { useNavigate } from 'react-router-dom';
 
-import { Endpoints } from '@/constants/frontend/endpoints';
+import { Endpoints } from '@/constants/endpoints';
 
 export default function GeneralError() {
   const navigate = useNavigate();

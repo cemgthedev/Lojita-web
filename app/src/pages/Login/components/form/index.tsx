@@ -13,9 +13,11 @@ import {
 
 import { InputCustom } from '@/components/common/Inputs/InputCustom';
 import { PasswordInput } from '@/components/common/Inputs/PasswordInput';
-import { Endpoints } from '@/constants/frontend/endpoints';
+import { Endpoints } from '@/constants/endpoints';
+import { USER_LOGGED } from '@/constants/tokens';
 import { useAuthentication } from '@/providers/Authentication.provider';
 import { TCredentials } from '@/types/TCredentials';
+import { cache } from '@/utils/cache.util';
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -40,8 +42,8 @@ export function LoginForm() {
       const { user } = data ?? {};
 
       if (user) {
-        console.log(user);
         setUser(user);
+        cache.setValue(USER_LOGGED, JSON.stringify(user));
         navigate(Endpoints.dashboard);
       } else {
         navigate(Endpoints.login);

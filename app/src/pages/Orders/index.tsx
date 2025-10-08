@@ -1,4 +1,3 @@
-
 export default function OrdersPage() {
   return (
     <section className="flex flex-col items-center gap-4">

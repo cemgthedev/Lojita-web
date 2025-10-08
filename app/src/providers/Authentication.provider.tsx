@@ -1,12 +1,15 @@
+import { USER_LOGGED } from '@/constants/tokens';
 import { usersMock } from '@/mock/users';
 import { TCredentials } from '@/types/TCredentials';
 import { TUser } from '@/types/TUser';
+import { cache } from '@/utils/cache.util';
 import {
   createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 
@@ -41,7 +44,15 @@ interface IProviderAuthentication {
 
 export function ProviderAuthentication({ children }: IProviderAuthentication) {
   const [user, setUser] = useState<TUser | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const user = cache.getValue(USER_LOGGED);
+
+    if (user) setUser(JSON.parse(user) as TUser);
+
+    setIsLoading(false);
+  }, []);
 
   const login = async ({
     email,
