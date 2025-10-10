@@ -4,7 +4,7 @@ export type MeasurementUnit =
   | { type: 'volume'; value: 'ml' | 'l' | 'gal' }; // Volume
 
 export type TSize = {
-  id?: string;
+  id: string;
   name: string;
   unit: MeasurementUnit;
   value: number;

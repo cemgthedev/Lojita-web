@@ -3,7 +3,7 @@ import { TProductItem } from './TProduct';
 export type TStatus = 'pending' | 'processing' | 'delivered' | 'cancelled';
 
 export type TOrder = {
-  id?: string;
+  id: string;
   status: TStatus;
   price: number;
   products: TProductItem[];

@@ -3,7 +3,7 @@ import { TProductVariant } from './TProductVariant';
 import { MeasurementUnit, TSize } from './TSize';
 
 export type TProduct = {
-  id?: string;
+  id: string;
   imageUrls: string[];
   name: string;
   description: string;
