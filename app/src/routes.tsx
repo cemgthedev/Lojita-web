@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { ProtectedRoutes } from './components/layouts/ProtectedRoutes';
-import { Endpoints } from './constants/frontend/endpoints';
+import { Endpoints } from './constants/endpoints';
 import ChatsPage from './pages/Chats';
 import DashboardPage from './pages/Dashboard';
 import GeneralError from './pages/Error';

@@ -1,4 +1,4 @@
-import { Link } from "@heroui/link";
+import { Link } from '@heroui/link';
 import {
   Navbar as HeroUINavbar,
   NavbarBrand,
@@ -7,12 +7,12 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-} from "@heroui/navbar";
-import { link as linkStyles } from "@heroui/theme";
-import clsx from "clsx";
+} from '@heroui/navbar';
+import { link as linkStyles } from '@heroui/theme';
+import clsx from 'clsx';
 
-import { siteConfig } from "@/components/site";
-import { ThemeSwitch } from "@/components/theme-switch";
+import { siteConfig } from '@/components/site';
+import { ThemeSwitch } from '@/components/theme-switch';
 
 export const Navbar = () => {
   return (
@@ -39,8 +39,8 @@ export const Navbar = () => {
             <NavbarItem key={item.href}>
               <Link
                 className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "flex items-center gap-1 data-[active=true]:text-secondary data-[active=true]:font-bold"
+                  linkStyles({ color: 'foreground' }),
+                  'flex items-center gap-1 data-[active=true]:text-secondary data-[active=true]:font-bold dark:text-gray-50',
                 )}
                 color="foreground"
                 href={item.href}
@@ -63,8 +63,8 @@ export const Navbar = () => {
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "flex items-center gap-1"
+                  linkStyles({ color: 'foreground' }),
+                  'flex items-center gap-1',
                 )}
                 color="foreground"
                 href={item.href}

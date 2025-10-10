@@ -1,38 +1,39 @@
-import { CircularProgress } from '@heroui/progress';
 import { useEffect } from 'react';
-import { useNavigate, useNavigation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import DefaultLayout from './DefaultLayout';
 
-import { Endpoints } from '@/constants/frontend/endpoints';
+import { Endpoints } from '@/constants/endpoints';
+import { ProviderApp } from '@/providers/App.provider';
 import { useAuthentication } from '@/providers/Authentication.provider';
-import { auth } from '@/services/api';
+import { Spinner } from '@heroui/spinner';
+import { addToast } from '@heroui/toast';
 
 export function ProtectedRoutes() {
   const { user, isLoading } = useAuthentication();
   const navigate = useNavigate();
-  const { state: navigationState } = useNavigation();
 
   useEffect(() => {
-    // Monitora mudanças de autenticação do Firebase diretamente
-    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
-      if (!firebaseUser) {
-        navigate(Endpoints.login, { replace: true });
-      }
-    });
+    if (!user && !isLoading) {
+      navigate(Endpoints.login);
+      addToast({
+        title: 'Por favor, efetue o login...',
+        color: 'primary',
+      });
+    }
+  }, [user, isLoading, navigate]);
 
-    return unsubscribe;
-  }, [navigate]);
-
-  // Exibe loading durante verificação de auth ou navegação
-  if (isLoading || navigationState === 'loading') {
+  if (isLoading)
     return (
       <div className="flex justify-center items-center h-screen">
-        <CircularProgress aria-label="Loading..." />
+        <Spinner />
       </div>
     );
-  }
 
   // Renderiza o layout apenas se o usuário estiver autenticado
-  return user ? <DefaultLayout /> : null;
+  return user ? (
+    <ProviderApp>
+      <DefaultLayout />
+    </ProviderApp>
+  ) : null;
 }
