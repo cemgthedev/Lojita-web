@@ -4,7 +4,6 @@ import { VisuallyHidden } from '@react-aria/visually-hidden';
 import clsx from 'clsx';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { FC, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 export interface ThemeSwitchProps {
   className?: string;
@@ -18,9 +17,6 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
   const [isMounted, setIsMounted] = useState(false);
 
   const { theme, setTheme } = useTheme();
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const {
     Component,
