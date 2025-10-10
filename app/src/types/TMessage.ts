@@ -1,4 +1,5 @@
 export type TMessage = {
+  chatId: string;
   userId: string;
   content: string;
 
