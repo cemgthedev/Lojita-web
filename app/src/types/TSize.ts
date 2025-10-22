@@ -9,7 +9,7 @@ export type TSize = {
   unit: MeasurementUnit;
   value: number;
 
-  sellerId: string;
+  productId: string;
 
   createdAt?: Date;
   updatedAt?: Date;

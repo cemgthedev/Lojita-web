@@ -9,7 +9,7 @@ export type TProductVariant = {
   price: number;
   stock: number;
 
-  sellerId: string;
+  productId: string;
 
   createdAt?: Date;
   updatedAt?: Date;

@@ -3,7 +3,7 @@ export type TColor = {
   name: string;
   hex: string;
 
-  sellerId: string;
+  productId: string;
 
   createdAt?: Date;
   updatedAt?: Date;
