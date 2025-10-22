@@ -1,16 +1,12 @@
 import { TColor } from './TColor';
 import { TProductVariant } from './TProductVariant';
-import { MeasurementUnit, TSize } from './TSize';
+import { TSize } from './TSize';
 
 export type TProduct = {
   id: string;
-  imageUrls: string[];
   name: string;
   description: string;
   category: string;
-  unitCategory: MeasurementUnit['type'];
-  price: number;
-  stock: number;
   options: {
     colors: TColor[];
     sizes: TSize[];
