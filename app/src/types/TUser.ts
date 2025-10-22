@@ -18,7 +18,7 @@ export enum ERoles {
 export type TGroupPermission = ERoles.admin | ERoles.seller | ERoles.buyer;
 
 export type TUser = {
-  id: string;
+  id?: string;
   avatarUrl?: string;
   name: string;
   document: string;

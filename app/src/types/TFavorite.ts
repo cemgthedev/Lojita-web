@@ -1,7 +1,7 @@
 import { TProductItem } from './TProduct';
 
 export type TFavorite = {
-  id: string;
+  id?: string;
   products: TProductItem[];
 
   sellerId: string;

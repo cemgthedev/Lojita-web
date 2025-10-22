@@ -5,7 +5,8 @@ export type TStatus = 'pending' | 'processing' | 'delivered' | 'cancelled';
 export type TOrder = {
   id: string;
   status: TStatus;
-  price: number;
+  price?: number;
+  quantity?: number;
   products: TProductItem[];
 
   sellerId: string;

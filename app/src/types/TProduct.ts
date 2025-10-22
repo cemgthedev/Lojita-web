@@ -7,7 +7,7 @@ export type TProduct = {
   name: string;
   description: string;
   category: string;
-  options: {
+  options?: {
     colors: TColor[];
     sizes: TSize[];
   };
@@ -20,9 +20,13 @@ export type TProduct = {
 };
 
 export type TProductItem = {
-  price?: number;
-  quantity?: number;
+  id: string;
+  price: number;
+  quantity: number;
+
+  sellerId: string;
+  buyerId: string;
 
   productId: string;
-  variantId?: string;
+  variantId: string;
 };
