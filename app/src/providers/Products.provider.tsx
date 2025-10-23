@@ -60,35 +60,60 @@ export function ProviderProducts({ children }: IProviderProducts) {
   ): Promise<TProduct[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        console.log(filterProducts);
         const filteredProducts = productsMock.filter((item) => {
+          const hasVariants = item.variants.length > 0;
+
+          const matchesName = filterProducts.name
+            ? item.name
+                .toLowerCase()
+                .includes(filterProducts.name.toLowerCase())
+            : true;
+
+          const matchesCategory = filterProducts.category
+            ? item.category
+                .toLowerCase()
+                .includes(filterProducts.category.toLowerCase())
+            : true;
+
+          const matchesMinPrice =
+            hasVariants && filterProducts.minPrice !== undefined
+              ? item.variants.some(
+                  (v) => v.price >= (filterProducts.minPrice ?? 0),
+                )
+              : true;
+
+          const matchesMaxPrice =
+            hasVariants && filterProducts.maxPrice !== undefined
+              ? item.variants.some(
+                  (v) => v.price <= (filterProducts.maxPrice ?? Infinity),
+                )
+              : true;
+
+          const matchesMinStock =
+            hasVariants && filterProducts.minStock !== undefined
+              ? item.variants.some(
+                  (v) => v.stock >= (filterProducts.minStock ?? 0),
+                )
+              : true;
+
+          const matchesMaxStock =
+            hasVariants && filterProducts.maxStock !== undefined
+              ? item.variants.some(
+                  (v) => v.stock <= (filterProducts.maxStock ?? Infinity),
+                )
+              : true;
+
           return (
-            (filterProducts.name
-              ? item.name
-                  .toLowerCase()
-                  .includes(filterProducts.name.toLowerCase())
-              : true) &&
-            (filterProducts.category
-              ? item.category
-                  .toLowerCase()
-                  .includes(filterProducts.category.toLowerCase())
-              : true) &&
-            (filterProducts.minPrice
-              ? item.price >= filterProducts.minPrice
-              : true) &&
-            (filterProducts.maxPrice
-              ? item.price <= filterProducts.maxPrice
-              : true) &&
-            (filterProducts.minStock
-              ? item.stock >= filterProducts.minStock
-              : true) &&
-            (filterProducts.maxStock
-              ? item.stock <= filterProducts.maxStock
-              : true)
+            matchesName &&
+            matchesCategory &&
+            matchesMinPrice &&
+            matchesMaxPrice &&
+            matchesMinStock &&
+            matchesMaxStock
           );
         });
 
-        setProducts((prevState) => filteredProducts);
+        setProducts(filteredProducts);
 
         resolve(filteredProducts);
       }, 1000);

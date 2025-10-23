@@ -72,7 +72,7 @@ export function TableProducts({
             <Avatar
               alt={product?.name}
               className="min-w-16 max-w-16 min-h-16 max-h-16 rounded-full"
-              src={product?.imageUrls[0]}
+              src={product?.coverUrl}
               color="secondary"
               showFallback
               fallback={
@@ -86,7 +86,7 @@ export function TableProducts({
               <p className="font-semibold">{product?.name}</p>
               <p className="text-sm text-default-400">{product?.category}</p>
               <p className="text-sm text-default-400">
-                {product?.stock} em estoque
+                {product?.totalStock} em estoque
               </p>
             </div>
           </div>
@@ -94,7 +94,13 @@ export function TableProducts({
       case 'description':
         return <p>{product.description}</p>;
       case 'price':
-        return <p>{formatterPrice(product.price)}</p>;
+        const minPrice = Math.min(...product.variants.map((v) => v.price));
+        const maxPrice = Math.max(...product.variants.map((v) => v.price));
+        return minPrice === maxPrice ? (
+          <p>{formatterPrice(minPrice)}</p>
+        ) : (
+          <p>{`${formatterPrice(minPrice)} - ${formatterPrice(maxPrice)}`}</p>
+        );
       case 'actions':
         return (
           <Dropdown className="z-10">

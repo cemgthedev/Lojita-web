@@ -4,6 +4,7 @@ import { TSize } from './TSize';
 
 export type TProduct = {
   id: string;
+  coverUrl?: string;
   name: string;
   description: string;
   category: string;
@@ -12,6 +13,7 @@ export type TProduct = {
     sizes: TSize[];
   };
   variants: TProductVariant[];
+  totalStock: number;
 
   sellerId: string;
 
