@@ -38,8 +38,8 @@ export function CardProduct({
             radius="none"
             classNames={{
               wrapper:
-                'flex justify-center bg-contain bg-center bg-no-repeat min-w-[216px] max-w-[216px] min-h-[256px] max-h-[256px] md:min-w-[232px] md:max-w-[232px]',
-              img: 'min-w-[216px] max-w-[216px] min-h-[256px] max-h-[256px] md:min-w-[232px] md:max-w-[232px]',
+                'flex justify-center bg-contain bg-center bg-no-repeat min-w-full min-h-[256px] max-h-[256px]',
+              img: 'min-w-full min-h-[256px] max-h-[256px]',
             }}
           />
         </div>
