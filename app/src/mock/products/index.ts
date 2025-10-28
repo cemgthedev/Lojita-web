@@ -6,7 +6,7 @@ import { sizesMock } from '../variants/sizes';
 export const productsMock: TProduct[] = [
   {
     id: 'p1',
-    coverUrl: 'https://example.com/camiseta-vermelha.jpg',
+    coverUrl: '/images/products/camisa-basica-vermelha.jpg',
     name: 'Camiseta Básica Vermelha',
     description: 'Camiseta 100% algodão, confortável e estilosa.',
     category: 'Vestuário',
@@ -20,7 +20,7 @@ export const productsMock: TProduct[] = [
   },
   {
     id: 'p2',
-    coverUrl: 'https://example.com/tenis-esportivo.jpg',
+    coverUrl: '/images/products/tenis-esportivo-roxo.jpg',
     name: 'Tênis Esportivo Roxo',
     description: 'Tênis leve e confortável, ideal para corridas e treinos.',
     category: 'Calçados',
@@ -31,7 +31,7 @@ export const productsMock: TProduct[] = [
   },
   {
     id: 'p3',
-    coverUrl: 'https://example.com/camiseta-azul.jpg',
+    coverUrl: '/images/products/camisa-basica-azul.jpg',
     name: 'Camiseta Azul Básica',
     description: 'Camiseta leve, ideal para o dia a dia.',
     category: 'Vestuário',
@@ -42,7 +42,7 @@ export const productsMock: TProduct[] = [
   },
   {
     id: 'p4',
-    coverUrl: 'https://example.com/camiseta-verde.jpg',
+    coverUrl: '/images/products/camisa-basica-verde.jpg',
     name: 'Camiseta Verde Básica',
     description: 'Modelo tradicional de algodão.',
     category: 'Vestuário',
@@ -53,7 +53,7 @@ export const productsMock: TProduct[] = [
   },
   {
     id: 'p5',
-    coverUrl: 'https://example.com/camiseta-preta.jpg',
+    coverUrl: '/images/products/camisa-basica-preta.jpg',
     name: 'Camiseta Preta Clássica',
     description: 'Combina com qualquer estilo.',
     category: 'Vestuário',
