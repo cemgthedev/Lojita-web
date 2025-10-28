@@ -3,6 +3,7 @@ import { IFilterProducts } from '@/providers/Products.provider';
 import { Button } from '@heroui/button';
 import { Tab, Tabs } from '@heroui/tabs';
 import { CirclePlusIcon } from 'lucide-react';
+import { ListProducts } from './components/list';
 import { SearchProduct } from './components/search';
 import { TableProducts } from './components/table';
 
@@ -91,7 +92,47 @@ export default function ProductsPage() {
             </div>
           </Tab>
           <Tab title="Visualização em Lista" key="list-view">
-            Lista
+            <div className="w-full flex flex-col items-center">
+              <ListProducts
+                topContent={
+                  <div className="flex flex-col md:flex-row gap-4 justify-between">
+                    <Button
+                      variant="shadow"
+                      color="success"
+                      size="md"
+                      radius="md"
+                      className="w-full sm:hidden"
+                    >
+                      <CirclePlusIcon
+                        size={20}
+                        className="text-gray-50 min-w-5 max-w-5 min-h-5 max-h-5"
+                      />
+                      <p className="text-gray-50 font-medium">
+                        Adicionar Produto
+                      </p>
+                    </Button>
+                    <div className="flex flex-col min-w-56">
+                      <h1 className="text-xl font-semibold">Produtos</h1>
+                      <p>
+                        {products.length === 1
+                          ? `${products.length} produto encontrado`
+                          : products.length === 0
+                            ? 'Nenhum produto encontrado'
+                            : `${products.length} produtos encontrados`}
+                      </p>
+                    </div>
+                    <SearchProduct
+                      filterProducts={filterProducts}
+                      setFilterProducts={setFilterProducts}
+                      searchProduct={handleFilterProduct}
+                    />
+                  </div>
+                }
+                products={products}
+                loadingState={isLoading}
+                remove={handleDeleteProduct}
+              />
+            </div>
           </Tab>
         </Tabs>
       </div>
