@@ -31,6 +31,7 @@ export let usersMock: TUser[] = [
   },
   {
     id: 'b1',
+    avatarUrl: '/images/users/lucas.jpg',
     name: 'Lucas Pereira',
     document: '456.789.123-00',
     age: 24,

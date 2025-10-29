@@ -23,6 +23,7 @@ export type TProduct = {
 
 export type TProductItem = {
   id: string;
+  name: string;
   price: number;
   quantity: number;
 

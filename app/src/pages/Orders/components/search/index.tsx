@@ -1,6 +1,6 @@
 import { InputCustom } from '@/components/common/Inputs/InputCustom';
-import { useProducts } from '@/hooks/use-products.hook';
-import { IFilterProducts } from '@/providers/Products.provider';
+import { useOrders } from '@/hooks/use-orders.hook';
+import { IFilterOrders } from '@/providers/Orders.provider';
 import { Button } from '@heroui/button';
 import { useDisclosure } from '@heroui/modal';
 import {
@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+import { getStatusOptions, TOrder } from '@/types/TOrder';
 import {
   Drawer,
   DrawerBody,
@@ -20,25 +21,33 @@ import {
   DrawerHeader,
 } from '@heroui/drawer';
 
+import { Autocomplete, AutocompleteItem } from '@heroui/autocomplete';
+
 interface SearchProps {
   // Filters
-  filterProducts?: IFilterProducts;
-  setFilterProducts?: (filter: IFilterProducts) => void;
-  searchProduct?: (filter: IFilterProducts) => void;
+  filterOrders?: IFilterOrders;
+  setFilterOrders?: (filter: IFilterOrders) => void;
+  searchOrders?: (filter: IFilterOrders) => void;
 }
 
-export const SearchProduct = ({
-  filterProducts,
-  setFilterProducts = () => {},
-  searchProduct = () => {},
+export const SearchOrder = ({
+  filterOrders,
+  setFilterOrders = () => {},
+  searchOrders = () => {},
 }: SearchProps) => {
-  const { setIsLoading } = useProducts();
-  const [search, setSearch] = useState(filterProducts?.name ?? '');
-  const [category, setCategory] = useState(filterProducts?.category ?? '');
-  const [minPrice, setMinPrice] = useState(filterProducts?.minPrice ?? 0);
-  const [maxPrice, setMaxPrice] = useState(filterProducts?.maxPrice ?? 0);
-  const [minStock, setMinStock] = useState(filterProducts?.minStock ?? 0);
-  const [maxStock, setMaxStock] = useState(filterProducts?.maxStock ?? 0);
+  const { setIsLoading } = useOrders();
+  const [searchBuyer, setSearchBuyer] = useState(filterOrders?.buyerName ?? '');
+  const [status, setStatus] = useState(filterOrders?.status ?? '');
+  const [minPrice, setMinPrice] = useState(filterOrders?.minPrice ?? 0);
+  const [maxPrice, setMaxPrice] = useState(filterOrders?.maxPrice ?? 0);
+  const [minQuantity, setMinQuantity] = useState(
+    filterOrders?.minQuantity ?? 0,
+  );
+  const [maxQuantity, setMaxQuantity] = useState(
+    filterOrders?.maxQuantity ?? 0,
+  );
+
+  const statusOptions = getStatusOptions();
 
   const {
     isOpen: isOpenModalFilters,
@@ -46,12 +55,12 @@ export const SearchProduct = ({
     onOpenChange: onOpenChangeModalFilters,
   } = useDisclosure();
 
-  const clearName = () => {
-    setSearch('');
+  const clearBuyerName = () => {
+    setSearchBuyer('');
   };
 
-  const clearCategory = () => {
-    setCategory('');
+  const clearstatus = () => {
+    setStatus('');
   };
 
   const clearMinPrice = () => {
@@ -62,26 +71,26 @@ export const SearchProduct = ({
     setMaxPrice(0);
   };
 
-  const clearMinStock = () => {
-    setMinStock(0);
+  const clearminQuantity = () => {
+    setMinQuantity(0);
   };
 
-  const clearMaxStock = () => {
-    setMaxStock(0);
+  const clearmaxQuantity = () => {
+    setMaxQuantity(0);
   };
 
   // debounce effect
   useEffect(() => {
     setIsLoading(true);
     const handler = setTimeout(() => {
-      setFilterProducts?.({
-        ...filterProducts,
-        name: search || undefined,
+      setFilterOrders?.({
+        ...filterOrders,
+        buyerName: searchBuyer || undefined,
       });
 
-      searchProduct({
-        ...filterProducts,
-        name: search || undefined,
+      searchOrders?.({
+        ...filterOrders,
+        buyerName: searchBuyer || undefined,
       });
     }, 300);
     setIsLoading(false);
@@ -89,15 +98,15 @@ export const SearchProduct = ({
     return () => {
       clearTimeout(handler);
     };
-  }, [search]);
+  }, [searchBuyer]);
 
   // debounce effect
   useEffect(() => {
     setIsLoading(true);
     const handler = setTimeout(() => {
-      setFilterProducts?.({
-        ...filterProducts,
-        category: category || undefined,
+      setFilterOrders?.({
+        ...filterOrders,
+        status: (status as TOrder['status']) || undefined,
       });
     }, 300);
     setIsLoading(false);
@@ -105,14 +114,14 @@ export const SearchProduct = ({
     return () => {
       clearTimeout(handler);
     };
-  }, [category]);
+  }, [status]);
 
   // debounce effect
   useEffect(() => {
     setIsLoading(true);
     const handler = setTimeout(() => {
-      setFilterProducts?.({
-        ...filterProducts,
+      setFilterOrders?.({
+        ...filterOrders,
         minPrice: minPrice || undefined,
       });
     }, 300);
@@ -127,8 +136,8 @@ export const SearchProduct = ({
   useEffect(() => {
     setIsLoading(true);
     const handler = setTimeout(() => {
-      setFilterProducts?.({
-        ...filterProducts,
+      setFilterOrders?.({
+        ...filterOrders,
         maxPrice: maxPrice || undefined,
       });
     }, 300);
@@ -143,9 +152,9 @@ export const SearchProduct = ({
   useEffect(() => {
     setIsLoading(true);
     const handler = setTimeout(() => {
-      setFilterProducts?.({
-        ...filterProducts,
-        minStock: minStock || undefined,
+      setFilterOrders?.({
+        ...filterOrders,
+        minQuantity: minQuantity || undefined,
       });
     }, 300);
     setIsLoading(false);
@@ -153,15 +162,15 @@ export const SearchProduct = ({
     return () => {
       clearTimeout(handler);
     };
-  }, [minStock]);
+  }, [minQuantity]);
 
   // debounce effect
   useEffect(() => {
     setIsLoading(true);
     const handler = setTimeout(() => {
-      setFilterProducts?.({
-        ...filterProducts,
-        maxStock: maxStock || undefined,
+      setFilterOrders?.({
+        ...filterOrders,
+        maxQuantity: maxQuantity || undefined,
       });
     }, 300);
     setIsLoading(false);
@@ -169,7 +178,7 @@ export const SearchProduct = ({
     return () => {
       clearTimeout(handler);
     };
-  }, [maxStock]);
+  }, [maxQuantity]);
 
   return (
     <>
@@ -181,7 +190,7 @@ export const SearchProduct = ({
             base: 'w-full md:w-1/2',
             input: 'text-sm',
           }}
-          placeholder="Pesquisar por nome"
+          placeholder="Pesquisar por comprador"
           radius="full"
           startContent={
             <Search
@@ -190,9 +199,9 @@ export const SearchProduct = ({
             />
           }
           type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onClear={clearName}
+          value={searchBuyer}
+          onChange={(e) => setSearchBuyer(e.target.value)}
+          onClear={clearBuyerName}
         />
         <Button
           isIconOnly
@@ -214,25 +223,35 @@ export const SearchProduct = ({
                 Filtros
               </DrawerHeader>
               <DrawerBody>
-                <InputCustom
+                <Autocomplete
                   isClearable
                   aria-label="Filtrar por categoria"
-                  classNames={{
-                    input: 'text-sm',
-                  }}
-                  placeholder="Filtrar por categoria"
                   radius="full"
+                  inputProps={{
+                    className: 'text-sm',
+                  }}
+                  defaultItems={statusOptions}
+                  placeholder="Filtrar por categoria"
                   startContent={
                     <ChartBarStackedIcon
                       className="min-w-5 max-w-5 min-h-5 max-h-5 opacity-50"
                       size={20}
                     />
                   }
-                  type="text"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  onClear={clearCategory}
-                />
+                  onClear={clearstatus}
+                  selectedKey={filterOrders?.status}
+                  onSelectionChange={(key) => {
+                    const selected = key ? String(key) : '';
+
+                    setStatus(selected);
+                  }}
+                >
+                  {(item) => (
+                    <AutocompleteItem key={item.key}>
+                      {item.label}
+                    </AutocompleteItem>
+                  )}
+                </Autocomplete>
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <InputCustom
                     isClearable
@@ -276,11 +295,11 @@ export const SearchProduct = ({
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <InputCustom
                     isClearable
-                    aria-label="Filtrar por estoque mínimo"
+                    aria-label="Filtrar por quantidade mínima"
                     classNames={{
                       input: 'text-sm',
                     }}
-                    placeholder="Estoque mínimo"
+                    placeholder="Quantidade mínima"
                     radius="full"
                     startContent={
                       <PackageIcon
@@ -289,17 +308,17 @@ export const SearchProduct = ({
                       />
                     }
                     type="number"
-                    value={minStock ? String(minStock) : ''}
-                    onChange={(e) => setMinStock(Number(e.target.value))}
-                    onClear={clearMinStock}
+                    value={minQuantity ? String(minQuantity) : ''}
+                    onChange={(e) => setMinQuantity(Number(e.target.value))}
+                    onClear={clearminQuantity}
                   />
                   <InputCustom
                     isClearable
-                    aria-label="Filtrar por estoque máximo"
+                    aria-label="Filtrar por quantidade máxima"
                     classNames={{
                       input: 'text-sm',
                     }}
-                    placeholder="Estoque máximo"
+                    placeholder="Quantidade máxima"
                     radius="full"
                     startContent={
                       <PackageIcon
@@ -308,9 +327,9 @@ export const SearchProduct = ({
                       />
                     }
                     type="number"
-                    value={maxStock ? String(maxStock) : ''}
-                    onChange={(e) => setMaxStock(Number(e.target.value))}
-                    onClear={clearMaxStock}
+                    value={maxQuantity ? String(maxQuantity) : ''}
+                    onChange={(e) => setMaxQuantity(Number(e.target.value))}
+                    onClear={clearmaxQuantity}
                   />
                 </div>
               </DrawerBody>
@@ -326,7 +345,7 @@ export const SearchProduct = ({
                 <Button
                   color="primary"
                   onPress={() => {
-                    searchProduct(filterProducts ?? {});
+                    searchOrders(filterOrders ?? {});
                     onClose();
                   }}
                   className="text-medium"
