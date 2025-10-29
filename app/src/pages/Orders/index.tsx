@@ -33,7 +33,7 @@ export default function OrdersPage() {
         <div className="w-full flex flex-col items-center">
           <TableOrders
             topContent={
-              <div className="flex flex-col md:flex-row gap-4 justify-between">
+              <div className="flex flex-col md:flex-row gap-4 justify-between md:items-end">
                 <div className="flex flex-col min-w-56">
                   <h1 className="text-xl font-semibold">Pedidos</h1>
                   <p>

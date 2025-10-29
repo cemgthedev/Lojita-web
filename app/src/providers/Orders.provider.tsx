@@ -64,7 +64,7 @@ export function ProviderOrders({ children }: IProviderOrders) {
             ? usersMock.some((u) =>
                 u.name
                   .toLowerCase()
-                  .includes(filterOrders?.sellerName?.toLowerCase() || ''),
+                  .includes(filterOrders.sellerName!.toLowerCase()),
               )
             : true;
 
@@ -72,7 +72,7 @@ export function ProviderOrders({ children }: IProviderOrders) {
             ? usersMock.some((u) =>
                 u.name
                   .toLowerCase()
-                  .includes(filterOrders?.buyerName?.toLowerCase() || ''),
+                  .includes(filterOrders.buyerName!.toLowerCase()),
               )
             : true;
 

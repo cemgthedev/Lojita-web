@@ -1,0 +1,131 @@
+import { TChat } from '@/types/TChat';
+import { usersMock } from '../users';
+
+export const chatsMock: TChat[] = [
+  {
+    id: 'c1',
+    sellerId: 's1',
+    buyerId: 'b1',
+    seller: usersMock.find((u) => u.id === 's1'),
+    buyer: usersMock.find((u) => u.id === 'b1'),
+    createdAt: new Date('2025-10-01T09:00:00'),
+    updatedAt: new Date('2025-10-01T09:13:20'),
+    messages: [
+      {
+        id: 'm1',
+        chatId: 'c1',
+        userId: 'b1',
+        content: 'Olá! Gostei muito do produto, ainda está disponível?',
+        createdAt: new Date('2025-10-01T09:12:00'),
+      },
+      {
+        id: 'm2',
+        chatId: 'c1',
+        userId: 's1',
+        content: 'Olá! Sim, está sim 😊',
+        createdAt: new Date('2025-10-01T09:13:20'),
+        updatedAt: new Date('2025-10-01T09:13:30'),
+      },
+    ],
+  },
+  {
+    id: 'c2',
+    sellerId: 's1',
+    buyerId: 'u1',
+    seller: usersMock.find((u) => u.id === 's1'),
+    buyer: usersMock.find((u) => u.id === 'u1'),
+    createdAt: new Date('2025-10-02T10:00:00'),
+    updatedAt: new Date('2025-10-02T10:16:30'),
+    messages: [
+      {
+        id: 'm3',
+        chatId: 'c2',
+        userId: 'u1',
+        content: 'Oi Mariana, tem desconto à vista?',
+        createdAt: new Date('2025-10-02T10:15:00'),
+      },
+      {
+        id: 'm4',
+        chatId: 'c2',
+        userId: 's1',
+        content: 'Consigo 10% de desconto 😉',
+        createdAt: new Date('2025-10-02T10:16:30'),
+      },
+    ],
+  },
+  {
+    id: 'c3',
+    sellerId: 's1',
+    buyerId: 'b1',
+    seller: usersMock.find((u) => u.id === 's1'),
+    buyer: usersMock.find((u) => u.id === 'b1'),
+    createdAt: new Date('2025-10-05T14:40:00'),
+    updatedAt: new Date('2025-10-05T14:46:10'),
+    messages: [
+      {
+        id: 'm5',
+        chatId: 'c3',
+        userId: 'b1',
+        content: 'Você faz entrega em Quixadá?',
+        createdAt: new Date('2025-10-05T14:45:00'),
+      },
+      {
+        id: 'm6',
+        chatId: 'c3',
+        userId: 's1',
+        content: 'Faço sim, via Correios 🚚',
+        createdAt: new Date('2025-10-05T14:46:10'),
+      },
+    ],
+  },
+  {
+    id: 'c4',
+    sellerId: 's1',
+    buyerId: 'b1',
+    seller: usersMock.find((u) => u.id === 's1'),
+    buyer: usersMock.find((u) => u.id === 'b1'),
+    createdAt: new Date('2025-10-07T18:00:00'),
+    updatedAt: new Date('2025-10-07T18:05:00'),
+    messages: [
+      {
+        id: 'm7',
+        chatId: 'c4',
+        userId: 'b1',
+        content: 'Oi, o produto vem com garantia?',
+        createdAt: new Date('2025-10-07T18:00:00'),
+      },
+      {
+        id: 'm8',
+        chatId: 'c4',
+        userId: 's1',
+        content: 'Sim, 1 ano de garantia contra defeitos de fabricação.',
+        createdAt: new Date('2025-10-07T18:05:00'),
+      },
+    ],
+  },
+  {
+    id: 'c5',
+    sellerId: 's1',
+    buyerId: 'b1',
+    seller: usersMock.find((u) => u.id === 's1'),
+    buyer: usersMock.find((u) => u.id === 'b1'),
+    createdAt: new Date('2025-10-09T20:10:00'),
+    updatedAt: new Date('2025-10-09T20:12:00'),
+    messages: [
+      {
+        id: 'm9',
+        chatId: 'c5',
+        userId: 'b1',
+        content: 'Boa noite! Consegue enviar amanhã?',
+        createdAt: new Date('2025-10-09T20:10:00'),
+      },
+      {
+        id: 'm10',
+        chatId: 'c5',
+        userId: 's1',
+        content: 'Sim, consigo despachar pela manhã 😉',
+        createdAt: new Date('2025-10-09T20:12:00'),
+      },
+    ],
+  },
+];
