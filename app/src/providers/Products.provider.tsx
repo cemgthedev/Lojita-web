@@ -124,13 +124,8 @@ export function ProviderProducts({ children }: IProviderProducts) {
     return new Promise((resolve) => {
       setTimeout(() => {
         const product = products.find((item) => item.id === id);
-
-        if (!product) {
-          resolve(undefined);
-        }
-
         resolve(product);
-      });
+      }, 500);
     });
   };
 
@@ -159,9 +154,9 @@ export function ProviderProducts({ children }: IProviderProducts) {
   const deleteProduct = async (id: string): Promise<boolean> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const ProductRegistered = products.find((item) => item.id === id);
+        const productRegistered = products.find((item) => item.id === id);
 
-        if (!ProductRegistered) {
+        if (!productRegistered) {
           resolve(false);
         }
 

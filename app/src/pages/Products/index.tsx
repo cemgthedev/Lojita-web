@@ -52,7 +52,7 @@ export default function ProductsPage() {
             <div className="w-full flex flex-col items-center">
               <TableProducts
                 topContent={
-                  <div className="flex flex-col md:flex-row gap-4 justify-between">
+                  <div className="flex flex-col md:flex-row gap-4 justify-between md:items-end">
                     <Button
                       variant="shadow"
                       color="success"
@@ -95,7 +95,7 @@ export default function ProductsPage() {
             <div className="w-full flex flex-col items-center">
               <ListProducts
                 topContent={
-                  <div className="flex flex-col md:flex-row gap-4 justify-between">
+                  <div className="flex flex-col md:flex-row gap-4 justify-between md:items-end">
                     <Button
                       variant="shadow"
                       color="success"
