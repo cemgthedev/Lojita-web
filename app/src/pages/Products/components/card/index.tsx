@@ -62,20 +62,20 @@ export function CardProduct({
                 <Button
                   size="md"
                   variant="shadow"
-                  color="primary"
-                  className="w-full font-medium"
-                >
-                  Editar
-                </Button>
-                <Button
-                  size="md"
-                  variant="shadow"
                   color="danger"
-                  className="w-full font-medium"
+                  className="w-full font-medium shadow-sm"
                   hidden={!remove}
                   onPress={remove && (() => remove(product))}
                 >
                   Excluir
+                </Button>
+                <Button
+                  size="md"
+                  variant="shadow"
+                  color="primary"
+                  className="w-full font-medium shadow-sm"
+                >
+                  Editar
                 </Button>
               </>
             )}

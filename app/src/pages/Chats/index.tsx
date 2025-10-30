@@ -1,6 +1,7 @@
 import { useChats } from '@/hooks/use-chats.hook';
 import { IFilterChats } from '@/providers/Chats.provider';
 import { Tab, Tabs } from '@heroui/tabs';
+import { ListChats } from './components/list';
 import { SearchChat } from './components/search';
 import { TableChats } from './components/table';
 
@@ -63,7 +64,32 @@ export default function ChatsPage() {
             </div>
           </Tab>
           <Tab title="Visualização em Lista" key="list-view">
-            <div className="w-full flex flex-col items-center">lista...</div>
+            <div className="w-full flex flex-col items-center">
+              <ListChats
+                topContent={
+                  <div className="flex flex-col md:flex-row gap-4 justify-between md:items-end">
+                    <div className="flex flex-col min-w-56">
+                      <h1 className="text-xl font-semibold">Conversas</h1>
+                      <p>
+                        {chats.length === 1
+                          ? `${chats.length} conversa encontrada`
+                          : chats.length === 0
+                            ? 'Nenhuma conversa encontrada'
+                            : `${chats.length} conversas encontradas`}
+                      </p>
+                    </div>
+                    <SearchChat
+                      filterChats={filterChats}
+                      setFilterChats={setFilterChats}
+                      searchChats={handleFilterChat}
+                    />
+                  </div>
+                }
+                chats={chats}
+                loadingState={isLoading}
+                remove={handleDeleteChat}
+              />
+            </div>
           </Tab>
         </Tabs>
       </div>

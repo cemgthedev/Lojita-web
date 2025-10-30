@@ -2,7 +2,6 @@ import { Endpoints } from '@/constants/endpoints';
 import {
   ChartPieIcon,
   HandCoinsIcon,
-  ListOrderedIcon,
   MessageCircleIcon,
   ShoppingBasketIcon,
 } from 'lucide-react';
@@ -42,11 +41,6 @@ export const siteConfig: TSiteConfig = {
       icon: <ShoppingBasketIcon className="w-6 h-6" />,
       label: 'Produtos',
       href: Endpoints.products,
-    },
-    {
-      icon: <ListOrderedIcon className="w-6 h-6" />,
-      label: 'Variantes',
-      href: Endpoints.variants,
     },
   ],
 };
