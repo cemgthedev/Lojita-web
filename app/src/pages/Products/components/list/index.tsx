@@ -7,7 +7,7 @@ import { Spinner } from '@heroui/spinner';
 import { useState } from 'react';
 import { CardProduct } from '../card';
 
-export interface ListProducsProps {
+export interface ListProductsProps {
   products: TProduct[];
   emptyContent?: string;
   loadingState?: boolean;
@@ -28,7 +28,7 @@ export function ListProducts({
   bottomContent,
   onOpenEdit,
   remove,
-}: ListProducsProps) {
+}: ListProductsProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [product, setProduct] = useState<TProduct | null>(null);
 
