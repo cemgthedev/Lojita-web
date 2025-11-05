@@ -9,6 +9,7 @@ import LoginPage from './pages/Login';
 import OrdersPage from './pages/Orders';
 import ProductDetails from './pages/ProductDetails';
 import ProductsPage from './pages/Products';
+import Profile from './pages/Profile';
 import RegisterPage from './pages/Register';
 import VariantsPage from './pages/Variants';
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: Endpoints.variants,
         element: <VariantsPage />,
+      },
+      {
+        path: Endpoints.profile,
+        element: <Profile />,
       },
     ],
   },

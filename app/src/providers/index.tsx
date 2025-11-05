@@ -20,7 +20,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
   return (
     <HeroUIProvider>
       <ToastProvider
-        placement="top-right"
+        placement="bottom-right"
         toastProps={{
           variant: 'bordered',
           radius: 'md',

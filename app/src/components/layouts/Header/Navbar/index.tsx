@@ -13,8 +13,20 @@ import clsx from 'clsx';
 
 import { siteConfig } from '@/components/site';
 import { ThemeSwitch } from '@/components/theme-switch';
+import { useAuthentication } from '@/providers/Authentication.provider';
+import { Avatar } from '@heroui/avatar';
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from '@heroui/dropdown';
+import { LogOutIcon, UserCogIcon } from 'lucide-react';
+import { Endpoints } from '@/constants/endpoints';
 
 export const Navbar = () => {
+  const { user, logout } = useAuthentication();
+
   return (
     <HeroUINavbar maxWidth="xl" position="sticky" className="bg-transparent">
       <NavbarContent className="md:hidden">
@@ -55,6 +67,41 @@ export const Navbar = () => {
 
       <NavbarContent justify="end">
         <ThemeSwitch />
+        <Dropdown placement="bottom-start">
+          <DropdownTrigger>
+            <Avatar isBordered color="secondary" src={user?.avatarUrl} />
+          </DropdownTrigger>
+          <DropdownMenu>
+            <DropdownItem
+              key="configs"
+              href={Endpoints.profile}
+              color="default"
+              className="flex items-center gap-2"
+              startContent={
+                <UserCogIcon
+                  size={20}
+                  className="min-w-5 max-w-5 min-h-5 max-h-5"
+                />
+              }
+            >
+              Perfil
+            </DropdownItem>
+            <DropdownItem
+              key="logout"
+              onClick={() => logout()}
+              color="danger"
+              className="flex items-center gap-2"
+              startContent={
+                <LogOutIcon
+                  size={20}
+                  className="min-w-5 max-w-5 min-h-5 max-h-5"
+                />
+              }
+            >
+              Sair
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </NavbarContent>
 
       <NavbarMenu className="mt-4">
