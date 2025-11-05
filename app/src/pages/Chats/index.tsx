@@ -71,10 +71,10 @@ export default function ChatsPage() {
                     <div className="flex flex-col min-w-56">
                       <h1 className="text-xl font-semibold">Conversas</h1>
                       <p>
-                        {chats.length === 1
-                          ? `${chats.length} conversa encontrada`
-                          : chats.length === 0
-                            ? 'Nenhuma conversa encontrada'
+                        {chats.length === 0
+                          ? 'Nenhuma conversa encontrada'
+                          : chats.length === 1
+                            ? `${chats.length} conversa encontrada`
                             : `${chats.length} conversas encontradas`}
                       </p>
                     </div>

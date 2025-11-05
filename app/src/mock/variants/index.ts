@@ -6,6 +6,7 @@ export const variantsMock: TProductVariant[] = [
   // Variantes do produto p1 — Camiseta Básica Vermelha
   {
     id: 'v1',
+    imageUrls: ['/images/products/camisa-basica-vermelha.jpg'],
     color: colorsMock[0],
     size: sizesMock[0],
     price: 59.9,
@@ -14,6 +15,7 @@ export const variantsMock: TProductVariant[] = [
   },
   {
     id: 'v2',
+    imageUrls: ['/images/products/camisa-basica-preta.jpg'],
     color: colorsMock[3],
     size: sizesMock[1],
     price: 69.9,
@@ -22,6 +24,7 @@ export const variantsMock: TProductVariant[] = [
   },
   {
     id: 'v3',
+    imageUrls: ['https://example.com/camiseta-branca.jpg'],
     color: colorsMock[4],
     size: sizesMock[2],
     price: 79.9,
@@ -42,6 +45,7 @@ export const variantsMock: TProductVariant[] = [
   // Variantes do produto p3 — Camiseta Azul Básica
   {
     id: 'v5',
+    imageUrls: ['/images/products/camisa-basica-azul.jpg'],
     color: colorsMock[1],
     size: sizesMock[1],
     price: 59.9,
@@ -52,6 +56,7 @@ export const variantsMock: TProductVariant[] = [
   // Variantes do produto p4 — Camiseta Verde Básica
   {
     id: 'v6',
+    imageUrls: ['/images/products/camisa-basica-verde.jpg'],
     color: colorsMock[2],
     size: sizesMock[2],
     price: 59.9,

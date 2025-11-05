@@ -37,10 +37,10 @@ export default function OrdersPage() {
                 <div className="flex flex-col min-w-56">
                   <h1 className="text-xl font-semibold">Pedidos</h1>
                   <p>
-                    {orders.length === 1
-                      ? `${orders.length} pedido encontrado`
-                      : orders.length === 0
-                        ? 'Nenhum pedido encontrado'
+                    {orders.length === 0
+                      ? 'Nenhum pedido encontrado'
+                      : orders.length === 1
+                        ? `${orders.length} pedido encontrado`
                         : `${orders.length} pedidos encontrados`}
                   </p>
                 </div>

@@ -1,9 +1,9 @@
 import { ModalDelete } from '@/components/common/ModalDelete';
 import { TProduct } from '@/types/TProduct';
 import { Card } from '@heroui/card';
-import { Divider } from '@heroui/divider';
 import { useDisclosure } from '@heroui/modal';
 import { Spinner } from '@heroui/spinner';
+import { cn } from '@heroui/theme';
 import { useState } from 'react';
 import { CardProduct } from '../card';
 
@@ -15,8 +15,9 @@ export interface ListProductsProps {
   bottomContent?: React.ReactNode;
   removeActions?: boolean;
   // Events
-  onOpenEdit?: (product: TProduct) => void;
+  onOpenEdit?: (id: string) => void;
   remove?: (id: string) => void;
+  className?: string;
 }
 
 export function ListProducts({
@@ -28,6 +29,7 @@ export function ListProducts({
   bottomContent,
   onOpenEdit,
   remove,
+  className,
 }: ListProductsProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [product, setProduct] = useState<TProduct | null>(null);
@@ -39,9 +41,11 @@ export function ListProducts({
 
   return (
     <>
-      <Card shadow="none" className="w-full lg:w-4/5 gap-4 bg-transparent">
+      <Card
+        shadow="none"
+        className={cn('w-full lg:w-4/5 gap-4 bg-transparent', className)}
+      >
         {topContent}
-        <Divider />
 
         {/* Carregando produtos */}
         {loadingState && (
@@ -62,6 +66,7 @@ export function ListProducts({
                 product={product}
                 removeActions={removeActions}
                 remove={handleRemoveProduct}
+                onOpenEdit={onOpenEdit}
               />
             ))}
           </div>
