@@ -1,5 +1,7 @@
 import { productsMock } from '@/mock/products';
 import { TProduct } from '@/types/TProduct';
+import { addToast } from '@heroui/toast';
+import { useMutation } from '@tanstack/react-query';
 import {
   createContext,
   Dispatch,
@@ -19,8 +21,8 @@ interface IContextProducts {
   createProduct(Product: TProduct): Promise<TProduct | undefined>;
   searchProduct(filterProducts: IFilterProducts): Promise<TProduct[]>;
   getProduct(id: string): Promise<TProduct | undefined>;
-  updateProduct(Product: TProduct, id: string): Promise<TProduct | undefined>;
-  deleteProduct(id: string): Promise<boolean>;
+  updateProduct(product: TProduct): void;
+  deleteProduct(id: string): void;
 }
 
 export const ContextProducts = createContext({} as IContextProducts);
@@ -151,6 +153,26 @@ export function ProviderProducts({ children }: IProviderProducts) {
     });
   };
 
+  const { mutate: updateProductMutation } = useMutation({
+    mutationFn: async (product: TProduct) => {
+      setIsLoading(true);
+      await updateProduct(product);
+      setIsLoading(false);
+    },
+    onSuccess: () => {
+      addToast({
+        title: 'Produto atualizado com sucesso',
+        color: 'success',
+      });
+    },
+    onError: () => {
+      addToast({
+        title: 'Erro ao atualizar produto',
+        color: 'danger',
+      });
+    },
+  });
+
   const deleteProduct = async (id: string): Promise<boolean> => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -167,6 +189,26 @@ export function ProviderProducts({ children }: IProviderProducts) {
     });
   };
 
+  const { mutate: deleteProductMutation } = useMutation({
+    mutationFn: async (id: string) => {
+      setIsLoading(true);
+      await deleteProduct(id);
+      setIsLoading(false);
+    },
+    onSuccess: () => {
+      addToast({
+        title: 'Produto excluído com sucesso',
+        color: 'success',
+      });
+    },
+    onError: () => {
+      addToast({
+        title: 'Erro ao excluir produto',
+        color: 'danger',
+      });
+    },
+  });
+
   return (
     <ContextProducts.Provider
       value={{
@@ -177,10 +219,10 @@ export function ProviderProducts({ children }: IProviderProducts) {
         filterProducts,
         setFilterProducts,
         createProduct,
-        updateProduct,
+        updateProduct: updateProductMutation,
         searchProduct,
         getProduct,
-        deleteProduct,
+        deleteProduct: deleteProductMutation,
       }}
     >
       {children}

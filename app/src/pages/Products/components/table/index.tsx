@@ -15,6 +15,7 @@ import { Key, useCallback, useState } from 'react';
 import { useDisclosure } from '@heroui/modal';
 
 import { ModalDelete } from '@/components/common/ModalDelete';
+import { Endpoints } from '@/constants/endpoints';
 import { Avatar } from '@heroui/avatar';
 import { Button } from '@heroui/button';
 import {
@@ -25,6 +26,7 @@ import {
 } from '@heroui/dropdown';
 import { Spinner } from '@heroui/spinner';
 import { EllipsisVertical, ShoppingBasketIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export interface TableProducsProps {
   products: TProduct[];
@@ -34,7 +36,7 @@ export interface TableProducsProps {
   bottomContent?: React.ReactNode;
   removeActions?: boolean;
   // Events
-  onOpenEdit?: (product: TProduct) => void;
+  onOpenEdit?: (id: string) => void;
   remove?: (id: string) => void;
 }
 
@@ -48,6 +50,8 @@ export function TableProducts({
   onOpenEdit,
   remove,
 }: TableProducsProps) {
+  const navigate = useNavigate();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [product, setProduct] = useState<TProduct | null>(null);
 
@@ -68,7 +72,7 @@ export function TableProducts({
     switch (columnKey) {
       case 'name':
         return (
-          <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row items-center gap-2 min-w-[212px]">
             <Avatar
               alt={product?.name}
               className="min-w-16 max-w-16 min-h-16 max-h-16 rounded-full"
@@ -92,7 +96,7 @@ export function TableProducts({
           </div>
         );
       case 'description':
-        return <p>{product.description}</p>;
+        return <p className="line-clamp-2">{product.description}</p>;
       case 'price':
         const minPrice = Math.min(...product.variants.map((v) => v.price));
         const maxPrice = Math.max(...product.variants.map((v) => v.price));
@@ -112,9 +116,15 @@ export function TableProducts({
 
             <DropdownMenu aria-label="Dynamic Actions" className="z-10">
               <DropdownItem
+                key="view"
+                onPress={() => navigate(`${Endpoints.products}/${product.id}`)}
+              >
+                Visualizar
+              </DropdownItem>
+              <DropdownItem
                 key="edit"
                 hidden={!onOpenEdit}
-                onPress={() => onOpenEdit?.(product)}
+                onPress={() => onOpenEdit?.(product?.id)}
               >
                 Editar
               </DropdownItem>

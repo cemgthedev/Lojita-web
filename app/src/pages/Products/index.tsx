@@ -1,6 +1,7 @@
 import { useProducts } from '@/hooks/use-products.hook';
 import { IFilterProducts } from '@/providers/Products.provider';
 import { Button } from '@heroui/button';
+import { Divider } from '@heroui/divider';
 import { Tab, Tabs } from '@heroui/tabs';
 import { CirclePlusIcon } from 'lucide-react';
 import { ListProducts } from './components/list';
@@ -15,15 +16,8 @@ export default function ProductsPage() {
     setFilterProducts,
     isLoading,
     setIsLoading,
-    updateProduct,
     deleteProduct,
   } = useProducts();
-
-  const handleDeleteProduct = async (id: string) => {
-    setIsLoading(true);
-    await deleteProduct(id);
-    setIsLoading(false);
-  };
 
   const handleFilterProduct = async (filterProducts: IFilterProducts) => {
     setIsLoading(true);
@@ -39,7 +33,7 @@ export default function ProductsPage() {
           color="success"
           size="md"
           radius="md"
-          className="w-fit hidden mb-4 ml-auto sm:flex sm:absolute sm:top-0 sm:right-0"
+          className="w-fit hidden mb-4 ml-auto shadow-sm sm:flex sm:absolute sm:top-0 sm:right-0"
         >
           <CirclePlusIcon
             size={20}
@@ -58,7 +52,7 @@ export default function ProductsPage() {
                       color="success"
                       size="md"
                       radius="md"
-                      className="w-full sm:hidden"
+                      className="w-full shadow-sm sm:hidden"
                     >
                       <CirclePlusIcon
                         size={20}
@@ -71,10 +65,10 @@ export default function ProductsPage() {
                     <div className="flex flex-col min-w-56">
                       <h1 className="text-xl font-semibold">Produtos</h1>
                       <p>
-                        {products.length === 1
-                          ? `${products.length} produto encontrado`
-                          : products.length === 0
-                            ? 'Nenhum produto encontrado'
+                        {products.length === 0
+                          ? 'Nenhum produto encontrado'
+                          : products.length === 1
+                            ? `${products.length} produto encontrado`
                             : `${products.length} produtos encontrados`}
                       </p>
                     </div>
@@ -87,7 +81,8 @@ export default function ProductsPage() {
                 }
                 products={products}
                 loadingState={isLoading}
-                remove={handleDeleteProduct}
+                remove={deleteProduct}
+                onOpenEdit={() => {}}
               />
             </div>
           </Tab>
@@ -95,42 +90,46 @@ export default function ProductsPage() {
             <div className="w-full flex flex-col items-center">
               <ListProducts
                 topContent={
-                  <div className="flex flex-col md:flex-row gap-4 justify-between md:items-end">
-                    <Button
-                      variant="shadow"
-                      color="success"
-                      size="md"
-                      radius="md"
-                      className="w-full sm:hidden"
-                    >
-                      <CirclePlusIcon
-                        size={20}
-                        className="text-gray-50 min-w-5 max-w-5 min-h-5 max-h-5"
+                  <>
+                    <div className="flex flex-col md:flex-row gap-4 justify-between md:items-end">
+                      <Button
+                        variant="shadow"
+                        color="success"
+                        size="md"
+                        radius="md"
+                        className="w-full shadow-sm sm:hidden"
+                      >
+                        <CirclePlusIcon
+                          size={20}
+                          className="text-gray-50 min-w-5 max-w-5 min-h-5 max-h-5"
+                        />
+                        <p className="text-gray-50 font-medium">
+                          Adicionar Produto
+                        </p>
+                      </Button>
+                      <div className="flex flex-col min-w-56">
+                        <h1 className="text-xl font-semibold">Produtos</h1>
+                        <p>
+                          {products.length === 1
+                            ? `${products.length} produto encontrado`
+                            : products.length === 0
+                              ? 'Nenhum produto encontrado'
+                              : `${products.length} produtos encontrados`}
+                        </p>
+                      </div>
+                      <SearchProduct
+                        filterProducts={filterProducts}
+                        setFilterProducts={setFilterProducts}
+                        searchProduct={handleFilterProduct}
                       />
-                      <p className="text-gray-50 font-medium">
-                        Adicionar Produto
-                      </p>
-                    </Button>
-                    <div className="flex flex-col min-w-56">
-                      <h1 className="text-xl font-semibold">Produtos</h1>
-                      <p>
-                        {products.length === 1
-                          ? `${products.length} produto encontrado`
-                          : products.length === 0
-                            ? 'Nenhum produto encontrado'
-                            : `${products.length} produtos encontrados`}
-                      </p>
                     </div>
-                    <SearchProduct
-                      filterProducts={filterProducts}
-                      setFilterProducts={setFilterProducts}
-                      searchProduct={handleFilterProduct}
-                    />
-                  </div>
+                    <Divider />
+                  </>
                 }
                 products={products}
                 loadingState={isLoading}
-                remove={handleDeleteProduct}
+                remove={deleteProduct}
+                onOpenEdit={() => {}}
               />
             </div>
           </Tab>
