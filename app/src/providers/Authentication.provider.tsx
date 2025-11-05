@@ -76,6 +76,8 @@ export function ProviderAuthentication({ children }: IProviderAuthentication) {
   const logout = async (): Promise<boolean> => {
     return new Promise((resolve) => {
       setTimeout(() => {
+        cache.clearValue(USER_LOGGED);
+        setUser(null);
         resolve(true);
       }, 2000);
     });

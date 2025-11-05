@@ -45,6 +45,10 @@ export function LoginForm() {
         setUser(user);
         cache.setValue(USER_LOGGED, JSON.stringify(user));
         navigate(Endpoints.dashboard);
+        addToast({
+          title: 'Bem-vindo(a) a Lojita!',
+          color: 'success',
+        });
       } else {
         navigate(Endpoints.login);
       }
