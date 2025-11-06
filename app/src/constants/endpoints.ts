@@ -5,6 +5,8 @@ export const Endpoints = {
   products: '/products',
   variants: '/variants',
   login: '/login',
+  users: '/users',
   register: '/register',
+  update: '/update',
   profile: '/profile',
 } as const;
