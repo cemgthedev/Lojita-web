@@ -1,4 +1,5 @@
 import { messages } from '@/common/messages';
+import { EGenders, ERoles } from '@/types/TUser';
 import z from 'zod/v3';
 
 export const createUserSchema = z
@@ -26,7 +27,7 @@ export const createUserSchema = z
       .nullable()
       .optional(),
     gender: z
-      .string({
+      .nativeEnum(EGenders, {
         required_error: messages.users.required_error_gender,
         invalid_type_error: messages.users.invalid_gender,
       })
@@ -36,10 +37,13 @@ export const createUserSchema = z
       required_error: messages.users.required_error_phone,
       invalid_type_error: messages.users.invalid_phone,
     }),
-    address: z.string({
-      required_error: messages.users.required_error_address,
-      invalid_type_error: messages.users.invalid_address,
-    }),
+    address: z
+      .string({
+        required_error: messages.users.required_error_address,
+        invalid_type_error: messages.users.invalid_address,
+      })
+      .nullable()
+      .optional(),
     email: z.string({
       required_error: messages.users.required_error_email,
       invalid_type_error: messages.users.invalid_email,
@@ -52,7 +56,7 @@ export const createUserSchema = z
       required_error: messages.users.required_error_password,
       invalid_type_error: messages.users.invalid_password,
     }),
-    role: z.string({
+    role: z.nativeEnum(ERoles, {
       required_error: messages.users.required_error_role,
       invalid_type_error: messages.users.invalid_role,
     }),

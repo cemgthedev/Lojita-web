@@ -68,6 +68,7 @@ export function UserForm() {
           <InputMaskCustom
             label="Telefone"
             placeholder="(99) 99999-9999"
+            isRequired
             onChange={onChange}
             onBlur={onBlur}
             value={value}
@@ -115,7 +116,9 @@ export function UserForm() {
             <InputCustom
               label="Idade"
               placeholder="Digite a sua idade"
-              onChange={onChange}
+              onChange={(e) => {
+                onChange(Number(e.target.value));
+              }}
               onBlur={onBlur}
               value={value ? String(value) : ''}
               isClearable
@@ -140,7 +143,7 @@ export function UserForm() {
             placeholder="Inserir link do google maps"
             onChange={onChange}
             onBlur={onBlur}
-            value={value}
+            value={value || ''}
             isClearable
             onClear={() => {
               onChange('');
@@ -160,6 +163,7 @@ export function UserForm() {
             defaultItems={rolesOptions}
             errorMessage={errors.role?.message}
             isInvalid={!!errors.role}
+            isRequired
             label="Atividades no site"
             placeholder="Informe se você é comprador ou vendedor"
             selectedKey={value}
@@ -181,6 +185,7 @@ export function UserForm() {
           <InputCustom
             label="Email"
             placeholder="Digite seu email"
+            isRequired
             onChange={onChange}
             onBlur={onBlur}
             value={value}
@@ -203,6 +208,7 @@ export function UserForm() {
             <InputCustom
               label="Senha"
               placeholder="Digite sua senha"
+              isRequired
               onChange={onChange}
               onBlur={onBlur}
               value={value}
@@ -224,6 +230,7 @@ export function UserForm() {
             <InputCustom
               label="Confirmar senha"
               placeholder="Confirme sua senha"
+              isRequired
               onChange={onChange}
               onBlur={onBlur}
               value={value}
