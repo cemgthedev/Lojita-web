@@ -1,19 +1,24 @@
 export type TGenders =
-  | { name: 'Masculino'; value: 'male' }
-  | { name: 'Feminino'; value: 'female' }
-  | { name: 'Outro'; value: 'other' };
+  | { label: 'Masculino'; value: 'male' }
+  | { label: 'Feminino'; value: 'female' }
+  | { label: 'Outro'; value: 'other' };
 
-export const Genders = {
-  male: { name: 'Masculino', value: 'male' } as TGenders,
-  female: { name: 'Feminino', value: 'female' } as TGenders,
-  other: { name: 'Outro', value: 'other' } as TGenders,
-};
+export const genderOptions: TGenders[] = [
+  { label: 'Masculino', value: 'male' },
+  { label: 'Feminino', value: 'female' },
+  { label: 'Outro', value: 'other' },
+];
 
 export enum ERoles {
   admin = 'admin',
   seller = 'seller',
   buyer = 'buyer',
 }
+
+export const rolesOptions = [
+  { label: 'Vendedor', value: ERoles.seller },
+  { label: 'Comprador', value: ERoles.buyer },
+];
 
 export type TGroupPermission = ERoles.admin | ERoles.seller | ERoles.buyer;
 
@@ -23,8 +28,8 @@ export type TUser = {
   name: string;
   document: string;
   age: number;
-  gender: TGenders;
-  phone: string;
+  gender?: TGenders;
+  phone?: string;
   address: string;
   email: string;
   password: string;
