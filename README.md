@@ -25,7 +25,7 @@ Aplicação web de marketplace para administrador, vendedores e compradores. Est
 
 # Site Online
 
-Entre no site [Lojita]() e faça login com as credenciais de um dos usuários da lista
+Entre no site [Lojita]() e faça login com as credenciais de um dos usuários da lista caso tenha encerrado a sessão. 
 
 ## Carlos Silva (Administrador)
 ```
