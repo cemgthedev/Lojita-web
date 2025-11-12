@@ -109,7 +109,7 @@ export function TableOrders({
             <Avatar
               alt={order.buyer?.name || 'Comprador'}
               className="min-w-16 max-w-16 min-h-16 max-h-16 rounded-full"
-              src={order.buyer?.avatarUrl}
+              src={order.buyer?.avatarUrl || undefined}
               color="secondary"
               showFallback
               fallback={
