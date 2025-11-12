@@ -28,7 +28,6 @@ export function ListChats({
   removeActions = false,
   topContent,
   bottomContent,
-  onOpenEdit,
   remove,
 }: ListChatsProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -74,7 +73,7 @@ export function ListChats({
                     <Avatar
                       alt={chat.buyer?.name || 'Comprador'}
                       className="min-w-16 max-w-16 min-h-16 max-h-16 rounded-full border-1 border-gray-300"
-                      src={chat.buyer?.avatarUrl}
+                      src={chat.buyer?.avatarUrl || undefined}
                       color="secondary"
                       showFallback
                       fallback={

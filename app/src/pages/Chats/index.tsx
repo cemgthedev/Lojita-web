@@ -13,11 +13,8 @@ export default function ChatsPage() {
     setFilterChats,
     isLoading,
     setIsLoading,
-    updateChat,
     deleteChat,
   } = useChats();
-
-  console.log(chats);
 
   const handleDeleteChat = async (id: string) => {
     setIsLoading(true);

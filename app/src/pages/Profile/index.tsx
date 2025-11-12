@@ -2,6 +2,7 @@ import { ModalDelete } from '@/components/common/ModalDelete';
 import { ThemeSwitch } from '@/components/theme-switch';
 import { useUsers } from '@/hooks/use-users.hook';
 import { useAuthentication } from '@/providers/Authentication.provider';
+import { EGenders } from '@/types/TUser';
 import { Avatar } from '@heroui/avatar';
 import { Button } from '@heroui/button';
 import { Card, CardBody } from '@heroui/card';
@@ -59,7 +60,7 @@ export default function Profile() {
               <Avatar
                 isBordered
                 color="secondary"
-                src={user?.avatarUrl}
+                src={user?.avatarUrl || undefined}
                 alt={'imagem do usuário'}
                 fallback={
                   <User2Icon
@@ -127,7 +128,7 @@ export default function Profile() {
                   />
                   <p>
                     <span className="font-semibold">Sexo:</span>{' '}
-                    {user.gender.name}
+                    {EGenders[user.gender]}
                   </p>
                 </div>
               )}

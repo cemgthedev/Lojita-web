@@ -69,7 +69,7 @@ export function TableChats({
             <Avatar
               alt={chat.buyer?.name || 'Comprador'}
               className="min-w-16 max-w-16 min-h-16 max-h-16 rounded-full"
-              src={chat.buyer?.avatarUrl}
+              src={chat.buyer?.avatarUrl || undefined}
               color="secondary"
               showFallback
               fallback={

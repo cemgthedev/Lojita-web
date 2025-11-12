@@ -49,7 +49,7 @@ export default function ProductDetails() {
     isLoading,
   } = useProducts();
 
-  const { data: product, isLoading: isLoadingProduct } = useQuery({
+  const { data: product } = useQuery({
     enabled: !!id,
     queryKey: ['get-product', id],
     queryFn: async () => {

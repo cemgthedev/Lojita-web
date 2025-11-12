@@ -13,6 +13,7 @@ import clsx from 'clsx';
 
 import { siteConfig } from '@/components/site';
 import { ThemeSwitch } from '@/components/theme-switch';
+import { Endpoints } from '@/constants/endpoints';
 import { useAuthentication } from '@/providers/Authentication.provider';
 import { Avatar } from '@heroui/avatar';
 import {
@@ -22,7 +23,6 @@ import {
   DropdownTrigger,
 } from '@heroui/dropdown';
 import { LogOutIcon, UserCogIcon } from 'lucide-react';
-import { Endpoints } from '@/constants/endpoints';
 
 export const Navbar = () => {
   const { user, logout } = useAuthentication();
@@ -69,7 +69,11 @@ export const Navbar = () => {
         <ThemeSwitch />
         <Dropdown placement="bottom-start">
           <DropdownTrigger>
-            <Avatar isBordered color="secondary" src={user?.avatarUrl} />
+            <Avatar
+              isBordered
+              color="secondary"
+              src={user?.avatarUrl || undefined}
+            />
           </DropdownTrigger>
           <DropdownMenu>
             <DropdownItem

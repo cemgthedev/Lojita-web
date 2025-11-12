@@ -11,7 +11,6 @@ export default function OrdersPage() {
     setFilterOrders,
     isLoading,
     setIsLoading,
-    updateOrder,
     deleteOrder,
   } = useOrders();
 
