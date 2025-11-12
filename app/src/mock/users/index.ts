@@ -1,4 +1,4 @@
-import { ERoles, Genders, TUser } from '@/types/TUser'; // ajuste o caminho conforme necessário
+import { EGenders, ERoles, TUser } from '@/types/TUser'; // ajuste o caminho conforme necessário
 
 export let usersMock: TUser[] = [
   {
@@ -6,7 +6,7 @@ export let usersMock: TUser[] = [
     name: 'Carlos Silva',
     document: '123.456.789-00',
     age: 28,
-    gender: Genders.male,
+    gender: EGenders.male,
     phone: '(11) 98888-7777',
     address: 'Rua das Flores, 123 - São Paulo/SP',
     email: 'admin@gmail.com',
@@ -20,7 +20,7 @@ export let usersMock: TUser[] = [
     name: 'Mariana Souza',
     document: '987.654.321-00',
     age: 32,
-    gender: Genders.female,
+    gender: EGenders.female,
     phone: '(21) 97777-6666',
     address: 'Av. Atlântica, 456 - Rio de Janeiro/RJ',
     email: 'seller@email.com',
@@ -35,7 +35,7 @@ export let usersMock: TUser[] = [
     name: 'Lucas Pereira',
     document: '456.789.123-00',
     age: 24,
-    gender: Genders.male,
+    gender: EGenders.male,
     phone: '(31) 96666-5555',
     address: 'Rua Minas, 789 - Belo Horizonte/MG',
     email: 'buyer@email.com',

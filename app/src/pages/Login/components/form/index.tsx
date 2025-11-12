@@ -35,7 +35,7 @@ export function LoginForm() {
   const { mutate, isPending } = useMutation({
     mutationFn: async (credentials: TCredentials) => {
       const response = await login(credentials);
-      console.log(response);
+
       return response;
     },
     onSuccess(data) {
@@ -50,6 +50,10 @@ export function LoginForm() {
           color: 'success',
         });
       } else {
+        addToast({
+          title: 'Senha ou e-mail inválidos',
+          color: 'danger',
+        });
         navigate(Endpoints.login);
       }
     },

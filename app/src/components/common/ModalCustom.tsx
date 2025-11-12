@@ -1,5 +1,4 @@
-import { Modal } from '@heroui/modal';
-import { ModalProps } from '@react-types/overlays';
+import { Modal, ModalProps } from '@heroui/modal';
 
 interface ModalCustomProps extends ModalProps {}
 

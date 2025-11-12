@@ -47,9 +47,16 @@ export function ProviderAuthentication({ children }: IProviderAuthentication) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     const user = cache.getValue(USER_LOGGED);
 
-    if (user) setUser(JSON.parse(user) as TUser);
+    if (user) {
+      setUser(JSON.parse(user) as TUser);
+    } else {
+      // login automático apenas para demonstração da ui
+      setUser(usersMock[0] as TUser);
+      cache.setValue(USER_LOGGED, JSON.stringify(usersMock[0]));
+    }
 
     setIsLoading(false);
   }, []);

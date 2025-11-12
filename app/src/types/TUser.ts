@@ -1,13 +1,14 @@
-export type TGenders =
-  | { name: 'Masculino'; value: 'male' }
-  | { name: 'Feminino'; value: 'female' }
-  | { name: 'Outro'; value: 'other' };
+export enum EGenders {
+  male = 'male',
+  female = 'female',
+  other = 'other',
+}
 
-export const Genders = {
-  male: { name: 'Masculino', value: 'male' } as TGenders,
-  female: { name: 'Feminino', value: 'female' } as TGenders,
-  other: { name: 'Outro', value: 'other' } as TGenders,
-};
+export const genderOptions: { label: string; value: EGenders }[] = [
+  { label: 'Masculino', value: EGenders.male },
+  { label: 'Feminino', value: EGenders.female },
+  { label: 'Outro', value: EGenders.other },
+];
 
 export enum ERoles {
   admin = 'admin',
@@ -15,20 +16,23 @@ export enum ERoles {
   buyer = 'buyer',
 }
 
-export type TGroupPermission = ERoles.admin | ERoles.seller | ERoles.buyer;
+export const rolesOptions = [
+  { label: 'Vendedor', value: ERoles.seller },
+  { label: 'Comprador', value: ERoles.buyer },
+];
 
 export type TUser = {
   id?: string;
-  avatarUrl?: string;
+  avatarUrl?: string | null;
   name: string;
   document: string;
-  age: number;
-  gender: TGenders;
-  phone: string;
-  address: string;
+  age?: number | null;
+  gender?: EGenders | null;
+  phone?: string | null;
+  address?: string | null;
   email: string;
   password: string;
-  role: TGroupPermission;
+  role: ERoles;
 
   createdAt?: Date;
   updatedAt?: Date;

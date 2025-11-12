@@ -1,5 +1,7 @@
 import { usersMock } from '@/mock/users';
 import { TUser } from '@/types/TUser';
+import { addToast } from '@heroui/toast';
+import { useMutation } from '@tanstack/react-query';
 import {
   createContext,
   Dispatch,
@@ -14,7 +16,7 @@ interface IContextUsers {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 
-  createUser(user: TUser): Promise<TUser | undefined>;
+  createUser(user: TUser): void;
   searchUser(): Promise<TUser[]>;
   getUser(id: string): Promise<TUser | undefined>;
   updateUser(user: TUser, id: string): Promise<TUser | undefined>;
@@ -46,6 +48,26 @@ export function ProviderUsers({ children }: IProviderUsers) {
       }, 2000);
     });
   };
+
+  const { mutate: createUserMutation } = useMutation({
+    mutationFn: async (user: TUser) => {
+      setIsLoading(true);
+      await createUser(user);
+      setIsLoading(false);
+    },
+    onSuccess: () => {
+      addToast({
+        title: 'Usuário cadastrado com sucesso',
+        color: 'success',
+      });
+    },
+    onError: () => {
+      addToast({
+        title: 'Erro ao cadastrar usuário',
+        color: 'danger',
+      });
+    },
+  });
 
   const searchUser = async (): Promise<TUser[]> => {
     return new Promise((resolve) => {
@@ -110,7 +132,7 @@ export function ProviderUsers({ children }: IProviderUsers) {
         setUsers,
         isLoading,
         setIsLoading,
-        createUser,
+        createUser: createUserMutation,
         updateUser,
         searchUser,
         getUser,
