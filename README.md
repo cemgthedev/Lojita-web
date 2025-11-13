@@ -1,5 +1,5 @@
 # Lojita-web
-Aplicação web de marketplace para administrador, vendedores e compradores. Esta versão única de site possui excelente personalização da interface com base no cliente autenticado. Se você é administrador gerencie os usuários, produtos e pedidos em geral; se você é vendedor gerencie seus produtos, chats e pedidos e se é comprador gerencie seus chats, favoritos e carrinho.
+Este projeto foi desenvolvido do Figma ao React utilizando o conceito de Design System. A aplicação trata-se de um marketplace para administrador, vendedores e compradores. Gerencie usuários, chats, pedidos, produtos, favoritos e carrinho de forma prática e rápida.
 
 # Tecnologias
 - Vite
