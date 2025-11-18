@@ -11,7 +11,7 @@ import ProductDetails from './pages/ProductDetails';
 import ProductsPage from './pages/Products';
 import Profile from './pages/Profile';
 import RegisterPage from './pages/Register';
-import VariantsPage from './pages/Variants';
+import { UpsertUser } from './pages/Users/components/UpsertUser';
 
 const router = createBrowserRouter([
   // Auth routes
@@ -50,12 +50,16 @@ const router = createBrowserRouter([
         element: <ProductDetails />,
       },
       {
-        path: Endpoints.variants,
-        element: <VariantsPage />,
-      },
-      {
         path: Endpoints.profile,
         element: <Profile />,
+      },
+      {
+        path: `${Endpoints.users}/${Endpoints.create}`,
+        element: <UpsertUser />,
+      },
+      {
+        path: `/${Endpoints.profile}/${Endpoints.update}/:id`,
+        element: <UpsertUser />,
       },
     ],
   },

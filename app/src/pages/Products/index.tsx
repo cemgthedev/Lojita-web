@@ -26,7 +26,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <section className="flex flex-col items-center gap-4">
+    <section className="flex flex-col items-center gap-4 p-6">
       <div className="relative w-full flex flex-col">
         <Button
           variant="shadow"

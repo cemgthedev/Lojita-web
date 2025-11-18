@@ -27,7 +27,7 @@ export default function OrdersPage() {
   };
 
   return (
-    <section className="flex flex-col items-center gap-4">
+    <section className="flex flex-col items-center gap-4 p-6">
       <div className="relative w-full flex flex-col">
         <div className="w-full flex flex-col items-center">
           <TableOrders

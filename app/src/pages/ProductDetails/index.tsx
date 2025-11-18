@@ -89,7 +89,7 @@ export default function ProductDetails() {
 
   return (
     <>
-      <section className="flex flex-col items-center gap-4">
+      <section className="flex flex-col items-center gap-4 p-6">
         <div className="flex justify-between items-center gap-4 w-full">
           <Button
             variant="light"

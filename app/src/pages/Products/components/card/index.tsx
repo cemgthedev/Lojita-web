@@ -103,7 +103,7 @@ export function CardProduct({
               variant="shadow"
               color="secondary"
               className="col-span-2 shadow-md font-medium"
-              onPress={() => navigate(`${Endpoints.products}/${product.id}`)}
+              onPress={() => navigate(`/${Endpoints.products}/${product.id}`)}
             >
               Ver detalhes
             </Button>

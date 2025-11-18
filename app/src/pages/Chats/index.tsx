@@ -29,7 +29,7 @@ export default function ChatsPage() {
   };
 
   return (
-    <section className="flex flex-col items-center gap-4">
+    <section className="flex flex-col items-center gap-4 p-6">
       <div className="relative w-full flex flex-col">
         <Tabs aria-label="Options" color="secondary">
           <Tab title="Visualização em Tabela" key="table-view">
