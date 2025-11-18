@@ -117,7 +117,7 @@ export function TableProducts({
             <DropdownMenu aria-label="Dynamic Actions" className="z-10">
               <DropdownItem
                 key="view"
-                onPress={() => navigate(`${Endpoints.products}/${product.id}`)}
+                onPress={() => navigate(`/${Endpoints.products}/${product.id}`)}
               >
                 Visualizar
               </DropdownItem>

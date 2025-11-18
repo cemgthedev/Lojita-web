@@ -19,7 +19,7 @@ interface IContextUsers {
   createUser(user: TUser): void;
   searchUser(): Promise<TUser[]>;
   getUser(id: string): Promise<TUser | undefined>;
-  updateUser(user: TUser, id: string): Promise<TUser | undefined>;
+  updateUser(user: TUser): void;
   deleteUser(id: string): Promise<boolean>;
 }
 
@@ -109,6 +109,27 @@ export function ProviderUsers({ children }: IProviderUsers) {
     });
   };
 
+  const { mutate: updateUserMutation } = useMutation({
+    mutationFn: async (user: TUser) => {
+      setIsLoading(true);
+      await updateUser(user);
+      setIsLoading(false);
+    },
+    onSuccess: () => {
+      console.log('onSuccess');
+      addToast({
+        title: 'Usuário atualizado com sucesso',
+        color: 'success',
+      });
+    },
+    onError: () => {
+      addToast({
+        title: 'Erro ao atualizar usuário',
+        color: 'danger',
+      });
+    },
+  });
+
   const deleteUser = async (id: string): Promise<boolean> => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -133,7 +154,7 @@ export function ProviderUsers({ children }: IProviderUsers) {
         isLoading,
         setIsLoading,
         createUser: createUserMutation,
-        updateUser,
+        updateUser: updateUserMutation,
         searchUser,
         getUser,
         deleteUser,

@@ -33,10 +33,13 @@ export const createUserSchema = z
       })
       .nullable()
       .optional(),
-    phone: z.string({
-      required_error: messages.users.required_error_phone,
-      invalid_type_error: messages.users.invalid_phone,
-    }),
+    phone: z
+      .string({
+        required_error: messages.users.required_error_phone,
+        invalid_type_error: messages.users.invalid_phone,
+      })
+      .nullable()
+      .optional(),
     address: z
       .string({
         required_error: messages.users.required_error_address,

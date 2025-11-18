@@ -1,71 +1,66 @@
-import {
-  createUserSchema,
-  TCreateUser,
-} from '@/common/validations/users/create-user.schema';
-import { Endpoints } from '@/constants/endpoints';
+import { createUserSchema } from '@/common/validations/users/create-user.schema';
+import { updateUserSchema } from '@/common/validations/users/update-user.schema';
 import { USER_LOGGED } from '@/constants/tokens';
 import { useUsers } from '@/hooks/use-users.hook';
 import { useAuthentication } from '@/providers/Authentication.provider';
-import { TCredentials } from '@/types/TCredentials';
+import { ERoles } from '@/types/TUser';
 import { cache } from '@/utils/cache.util';
 import { Button } from '@heroui/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@heroui/card';
-import { addToast } from '@heroui/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { XCircleIcon } from 'lucide-react';
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { UserForm } from '../Users/components/form';
+import { useNavigate, useParams } from 'react-router-dom';
+import z from 'zod/v3';
+import { UserForm } from './form';
 
-export default function RegisterPage() {
+export function UpsertUser() {
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  const { createUser } = useUsers();
-  const { login, setUser } = useAuthentication();
+  const isCreate = !id;
 
-  const methods = useForm<TCreateUser>({
-    resolver: zodResolver(createUserSchema),
+  const userSchema = isCreate ? createUserSchema : updateUserSchema;
+  type TFormUser = z.infer<typeof createUserSchema>;
+
+  const methods = useForm<TFormUser>({
+    resolver: zodResolver(userSchema),
   });
 
-  const { mutate: loginMutation, isPending: isPendingLogin } = useMutation({
-    mutationFn: async (credentials: TCredentials) => {
-      const response = await login(credentials);
+  useEffect(() => {
+    if (methods.formState.errors) {
+      console.log(methods.formState.errors);
+    }
+  }, [methods.formState.errors]);
 
-      return response;
-    },
-    onSuccess(data) {
-      const { user } = data ?? {};
+  const { setUser } = useAuthentication();
+  const { createUser, updateUser, getUser } = useUsers();
 
-      if (user) {
-        setUser(user);
-        cache.setValue(USER_LOGGED, JSON.stringify(user));
-        navigate(Endpoints.dashboard);
-        addToast({
-          title: 'Bem-vindo(a) a Lojita!',
-          color: 'success',
-        });
-      } else {
-        addToast({
-          title: 'Senha ou e-mail inválidos',
-          color: 'danger',
-        });
-        navigate(Endpoints.login);
-      }
-    },
-    onError() {
-      addToast({
-        title: 'Senha ou e-mail inválidos',
-        color: 'danger',
-      });
-    },
+  const { data: user, isLoading: isLoadingUser } = useQuery({
+    enabled: !!id,
+    queryKey: ['get-user', id],
+    queryFn: () => getUser(id!),
   });
+
+  const mutation = isCreate ? createUser : updateUser;
+
+  useEffect(() => {
+    if (user && !isCreate) {
+      methods.reset({ ...user });
+    }
+  }, [user, isLoadingUser, isCreate]);
 
   const onSubmit = methods.handleSubmit((data) => {
-    () => createUser(data);
-    const { email, password } = data;
-    loginMutation({ email, password });
+    mutation(data);
+    cache.setValue(USER_LOGGED, JSON.stringify(data));
+    setUser(data);
+
+    navigate(-1);
   });
+
+  const isAdmin = user?.role === ERoles.admin;
 
   return (
     <section className="relative flex flex-col justify-center items-center gap-4 px-4 h-screen bg-gradient-to-t from-[#075985] to-[#5B21B6]">
@@ -75,7 +70,7 @@ export default function RegisterPage() {
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
             <CardHeader className="relative flex flex-col items-center text-2xl font-semibold">
-              Cadastro de Usuário
+              {isCreate ? 'Cadastrar Usuário' : 'Atualizar Usuário'}
               <Button
                 variant="light"
                 isIconOnly
@@ -88,7 +83,7 @@ export default function RegisterPage() {
               />
             </CardHeader>
             <CardBody className="gap-4 h-[60vh]">
-              <UserForm />
+              <UserForm isAdmin />
             </CardBody>
             <CardFooter className="justify-end gap-2">
               <Button
@@ -104,7 +99,6 @@ export default function RegisterPage() {
                 color="success"
                 type="submit"
                 className="shadow-md text-gray-50 text-medium font-medium"
-                isLoading={isPendingLogin}
               >
                 Cadastrar
               </Button>

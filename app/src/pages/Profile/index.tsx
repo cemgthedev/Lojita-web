@@ -1,5 +1,6 @@
 import { ModalDelete } from '@/components/common/ModalDelete';
 import { ThemeSwitch } from '@/components/theme-switch';
+import { Endpoints } from '@/constants/endpoints';
 import { useUsers } from '@/hooks/use-users.hook';
 import { useAuthentication } from '@/providers/Authentication.provider';
 import { EGenders } from '@/types/TUser';
@@ -21,7 +22,7 @@ import {
   VenusAndMarsIcon,
 } from 'lucide-react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Profile() {
   const { user, logout } = useAuthentication();
@@ -33,7 +34,7 @@ export default function Profile() {
 
   return (
     <>
-      <section className="flex flex-col items-center gap-4">
+      <section className="flex flex-col items-center gap-4 p-6">
         <div className="flex justify-between items-center gap-4 w-full">
           <Button
             variant="light"
@@ -169,6 +170,8 @@ export default function Profile() {
                 size="md"
                 radius="md"
                 className="min-w-fit shadow-sm"
+                as={Link}
+                to={user?.id ? `${Endpoints.update}/${user.id}` : ''}
               >
                 <SquarePenIcon
                   size={20}

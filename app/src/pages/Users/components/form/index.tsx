@@ -6,7 +6,11 @@ import { genderOptions, rolesOptions } from '@/types/TUser';
 import { AutocompleteItem } from '@heroui/autocomplete';
 import { Controller, useFormContext } from 'react-hook-form';
 
-export function UserForm() {
+export interface IUserFormProps {
+  isAdmin?: boolean;
+}
+
+export function UserForm({ isAdmin = false }: IUserFormProps) {
   const {
     control,
     formState: { errors },
@@ -71,7 +75,7 @@ export function UserForm() {
             isRequired
             onChange={onChange}
             onBlur={onBlur}
-            value={value}
+            value={value || ''}
             ref={ref}
             isClearable
             onClear={() => {
@@ -155,28 +159,32 @@ export function UserForm() {
         )}
       />
 
-      <Controller
-        control={control}
-        name="role"
-        render={({ field: { onChange, onBlur, value, ref } }) => (
-          <AutocompleteCustom
-            defaultItems={rolesOptions}
-            errorMessage={errors.role?.message}
-            isInvalid={!!errors.role}
-            isRequired
-            label="Atividades no site"
-            placeholder="Informe se você é comprador ou vendedor"
-            selectedKey={value}
-            onSelectionChange={(key) => onChange(String(key))}
-            ref={ref}
-            onBlur={onBlur}
-          >
-            {(item: any) => (
-              <AutocompleteItem key={item.value}>{item.label}</AutocompleteItem>
-            )}
-          </AutocompleteCustom>
-        )}
-      />
+      {!isAdmin && (
+        <Controller
+          control={control}
+          name="role"
+          render={({ field: { onChange, onBlur, value, ref } }) => (
+            <AutocompleteCustom
+              defaultItems={rolesOptions}
+              errorMessage={errors.role?.message}
+              isInvalid={!!errors.role}
+              isRequired
+              label="Atividades no site"
+              placeholder="Informe se você é comprador ou vendedor"
+              selectedKey={value}
+              onSelectionChange={(key) => onChange(String(key))}
+              ref={ref}
+              onBlur={onBlur}
+            >
+              {(item: any) => (
+                <AutocompleteItem key={item.value}>
+                  {item.label}
+                </AutocompleteItem>
+              )}
+            </AutocompleteCustom>
+          )}
+        />
+      )}
 
       <Controller
         control={control}
@@ -216,6 +224,7 @@ export function UserForm() {
               onClear={() => {
                 onChange('');
               }}
+              type="password"
               ref={ref}
               isInvalid={!!errors.password}
               errorMessage={errors.password?.message}
@@ -238,6 +247,7 @@ export function UserForm() {
               onClear={() => {
                 onChange('');
               }}
+              type="password"
               ref={ref}
               isInvalid={!!errors.confirmPassword}
               errorMessage={errors.confirmPassword?.message}
