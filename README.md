@@ -25,7 +25,7 @@ Este projeto foi desenvolvido do Figma ao React utilizando o conceito de Design 
 
 # Site Online
 
-Entre no site [Lojita](https://bit.ly/Lojita) e faça login com as credenciais de um dos usuários da lista caso tenha encerrado a sessão. 
+Entre no site [Lojita](https://bit.ly/4oHRfd7) e faça login com as credenciais de um dos usuários da lista caso tenha encerrado a sessão. 
 
 ## Carlos Silva (Administrador)
 ```
