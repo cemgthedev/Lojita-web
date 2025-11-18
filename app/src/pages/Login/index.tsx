@@ -27,7 +27,7 @@ export default function LoginPage() {
               disableAnimation
               className="p-0 h-fit text-base data-[hover=true]:bg-transparent data-[hover=true]:text-primary-600"
               endContent={<ExternalLinkIcon className="w-5 h-5" />}
-              onPress={() => navigate(Endpoints.register)}
+              onPress={() => navigate(`/${Endpoints.register}`)}
             >
               Cadastre-se
             </Button>

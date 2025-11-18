@@ -15,7 +15,7 @@ export function ProtectedRoutes() {
 
   useEffect(() => {
     if (!user && !isLoading) {
-      navigate(Endpoints.login);
+      navigate(`${Endpoints.login}`);
       addToast({
         title: 'Por favor, efetue o login...',
         color: 'primary',

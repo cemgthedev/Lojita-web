@@ -44,7 +44,7 @@ export function LoginForm() {
       if (user) {
         setUser(user);
         cache.setValue(USER_LOGGED, JSON.stringify(user));
-        navigate(Endpoints.dashboard);
+        navigate(`/${Endpoints.dashboard}`);
         addToast({
           title: 'Bem-vindo(a) a Lojita!',
           color: 'success',
@@ -54,7 +54,7 @@ export function LoginForm() {
           title: 'Senha ou e-mail inválidos',
           color: 'danger',
         });
-        navigate(Endpoints.login);
+        navigate(`/${Endpoints.login}`);
       }
     },
     onError() {

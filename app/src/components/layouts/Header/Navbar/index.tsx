@@ -15,6 +15,7 @@ import { siteConfig } from '@/components/site';
 import { ThemeSwitch } from '@/components/theme-switch';
 import { Endpoints } from '@/constants/endpoints';
 import { useAuthentication } from '@/providers/Authentication.provider';
+import { ERoles } from '@/types/TUser';
 import { Avatar } from '@heroui/avatar';
 import {
   Dropdown,
@@ -47,7 +48,7 @@ export const Navbar = () => {
 
       <NavbarContent justify="center" className="hidden md:flex w-full">
         <div className="flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
+          {siteConfig.navItems[user?.role || ERoles.buyer].map((item) => (
             <NavbarItem key={item.href}>
               <Link
                 className={clsx(
@@ -110,21 +111,23 @@ export const Navbar = () => {
 
       <NavbarMenu className="mt-4">
         <div className="px-6 py-4 flex flex-col gap-2">
-          {siteConfig.navItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                className={clsx(
-                  linkStyles({ color: 'foreground' }),
-                  'flex items-center gap-1',
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.icon}
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
+          {siteConfig.navItems[user?.role || ERoles.buyer].map(
+            (item, index) => (
+              <NavbarMenuItem key={`${item}-${index}`}>
+                <Link
+                  className={clsx(
+                    linkStyles({ color: 'foreground' }),
+                    'flex items-center gap-1',
+                  )}
+                  color="foreground"
+                  href={item.href}
+                >
+                  {item.icon}
+                  {item.label}
+                </Link>
+              </NavbarMenuItem>
+            ),
+          )}
         </div>
       </NavbarMenu>
     </HeroUINavbar>

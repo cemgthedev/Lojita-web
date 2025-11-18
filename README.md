@@ -35,13 +35,13 @@ senha: 12345678
 
 ## Mariana Souza (Vendedora)
 ```
-email: seller@email.com
+email: seller@gmail.com
 senha: 12345678
 ```
 
 ## Lucas Pereira (Comprador)
 ```
-email: buyer@email.com
+email: buyer@gmail.com
 senha: 12345678
 ```
 

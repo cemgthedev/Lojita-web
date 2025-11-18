@@ -8,9 +8,10 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 export interface IUserFormProps {
   isAdmin?: boolean;
+  isCreate?: boolean;
 }
 
-export function UserForm({ isAdmin = false }: IUserFormProps) {
+export function UserForm({ isAdmin = false, isCreate = true }: IUserFormProps) {
   const {
     control,
     formState: { errors },
@@ -159,7 +160,7 @@ export function UserForm({ isAdmin = false }: IUserFormProps) {
         )}
       />
 
-      {!isAdmin && (
+      {!isAdmin && isCreate && (
         <Controller
           control={control}
           name="role"

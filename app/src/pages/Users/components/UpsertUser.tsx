@@ -83,7 +83,7 @@ export function UpsertUser() {
               />
             </CardHeader>
             <CardBody className="gap-4 h-[60vh]">
-              <UserForm isAdmin={isAdmin} />
+              <UserForm isAdmin={isAdmin} isCreate={isCreate} />
             </CardBody>
             <CardFooter className="justify-end gap-2">
               <Button

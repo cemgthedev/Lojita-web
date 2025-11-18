@@ -19,7 +19,7 @@ export default function GeneralError() {
           <Button variant="bordered" onPress={() => navigate(-1)}>
             Voltar
           </Button>
-          <Button onPress={() => navigate(Endpoints.dashboard)}>
+          <Button onPress={() => navigate(`/${Endpoints.dashboard}`)}>
             Voltar para Home
           </Button>
         </div>

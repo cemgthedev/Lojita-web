@@ -1,8 +1,11 @@
 export const Endpoints = {
-  dashboard: '/',
+  dashboard: '',
   orders: 'orders',
   chats: 'chats',
+  clients: 'clients',
   products: 'products',
+  favorites: 'favorites',
+  cart: 'cart',
   variants: 'variants',
   login: 'login',
   users: 'users',
