@@ -96,11 +96,11 @@ export function UpsertUser() {
               </Button>
               <Button
                 variant="shadow"
-                color="success"
+                color={isCreate ? 'success' : 'primary'}
                 type="submit"
                 className="shadow-md text-gray-50 text-medium font-medium"
               >
-                Cadastrar
+                {isCreate ? 'Cadastrar' : 'Atualizar'}
               </Button>
             </CardFooter>
           </form>
