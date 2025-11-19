@@ -1,5 +1,24 @@
 @import "tailwindcss";
 @plugin './hero.ts';
+
 /* Note: You may need to change the path to fit your project structure */
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+}
+
+:root {
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.828 0.189 84.429);
+  --chart-3: oklch(0.6 0.118 184.704);
+}
+
+.dark {
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.828 0.189 84.429);
+  --chart-3: oklch(0.6 0.118 184.704);
+}

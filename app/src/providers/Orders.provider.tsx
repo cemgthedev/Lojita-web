@@ -1,11 +1,21 @@
+import {
+  TChartAreaPriceOrdersProps,
+  TPriceChartData,
+} from '@/components/common/charts/ChartAreaPriceOrders';
+import {
+  TChartAreaStatusOrdersProps,
+  TStatusChartData,
+} from '@/components/common/charts/ChartAreaStatusOrders';
 import { ordersMock } from '@/mock/orders';
 import { usersMock } from '@/mock/users';
 import { TOrder } from '@/types/TOrder';
+import { formatterPrice } from '@/utils/formatter.util';
 import {
   createContext,
   Dispatch,
   ReactNode,
   SetStateAction,
+  useMemo,
   useState,
 } from 'react';
 
@@ -22,6 +32,9 @@ interface IContextOrders {
   getOrder(id: string): Promise<TOrder | undefined>;
   updateOrder(order: TOrder, id?: string): Promise<TOrder | undefined>;
   deleteOrder(id: string): Promise<boolean>;
+
+  statusChart: TChartAreaStatusOrdersProps;
+  priceChart: TChartAreaPriceOrdersProps;
 }
 
 export const ContextOrders = createContext({} as IContextOrders);
@@ -159,6 +172,92 @@ export function ProviderOrders({ children }: IProviderOrders) {
     });
   };
 
+  const monthNames = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+  ];
+
+  const statusChart = useMemo((): TChartAreaStatusOrdersProps => {
+    const result: Record<number, TStatusChartData> = {};
+
+    // Inicializa todos os meses do ano
+    for (let i = 0; i < 12; i++) {
+      result[i] = {
+        month: monthNames[i],
+        cancelled: 0,
+        processing: 0,
+        delivered: 0,
+      };
+    }
+
+    // Percorre os pedidos e soma
+    orders.forEach((order) => {
+      if (!order.createdAt) return; // cobre undefined, null e string vazia
+
+      const createdAt = new Date(order.createdAt);
+      if (isNaN(createdAt.getTime())) return; // data inválida → ignora
+
+      const m = new Date(order.createdAt).getMonth();
+
+      if (order.status === 'cancelled') result[m].cancelled++;
+      if (order.status === 'processing') result[m].processing++;
+      if (order.status === 'delivered') result[m].delivered++;
+    });
+
+    // Retorna somente janeiro a junho se quiser limitar:
+    return {
+      quantity: orders.length,
+      chartData: Object.values(result).slice(0, 6),
+    };
+  }, [orders]);
+
+  const priceChart = useMemo((): TChartAreaPriceOrdersProps => {
+    const result: Record<number, TPriceChartData> = {};
+    let quantity = 0;
+    let totalPrice = 0;
+
+    // Inicializa todos os meses do ano
+    for (let i = 0; i < 12; i++) {
+      result[i] = {
+        month: monthNames[i],
+        price: 0,
+      };
+    }
+
+    // Percorre os pedidos e soma
+    orders.forEach((order) => {
+      if (!order.createdAt) return; // cobre undefined, null e string vazia
+
+      const createdAt = new Date(order.createdAt);
+      if (isNaN(createdAt.getTime())) return; // data inválida → ignora
+
+      const m = new Date(order.createdAt).getMonth();
+
+      if (order.status === 'delivered') {
+        result[m].price += order.price ?? 0;
+        quantity++;
+        totalPrice += order.price ?? 0;
+      }
+    });
+
+    // Retorna somente janeiro a junho se quiser limitar:
+    return {
+      quantity: quantity,
+      totalPrice: formatterPrice(totalPrice),
+      chartData: Object.values(result).slice(0, 6),
+    };
+  }, [orders]);
+
   return (
     <ContextOrders.Provider
       value={{
@@ -173,6 +272,8 @@ export function ProviderOrders({ children }: IProviderOrders) {
         searchOrders,
         getOrder,
         deleteOrder,
+        statusChart,
+        priceChart,
       }}
     >
       {children}
