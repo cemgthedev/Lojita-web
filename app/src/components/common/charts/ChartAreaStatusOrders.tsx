@@ -14,7 +14,6 @@ import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
 } from '@/components/ui/chart';
 
 export const description = 'An area chart with axes';
@@ -26,7 +25,7 @@ export interface TStatusChartData {
   delivered: number;
 }
 
-export interface TChartAreaStatusOrdersProps {
+export interface TStatusOrdersChartAreaProps {
   quantity?: number;
   chartData: TStatusChartData[];
 }
@@ -49,7 +48,7 @@ const chartConfig = {
 export function ChartAreaStatusOrders({
   quantity = 0,
   chartData,
-}: TChartAreaStatusOrdersProps) {
+}: TStatusOrdersChartAreaProps) {
   return (
     <Card>
       <CardHeader className="justify-start gap-1">
@@ -92,7 +91,44 @@ export function ChartAreaStatusOrders({
                 (dataMax: number) => Math.floor(dataMax + dataMax * 0.25),
               ]}
             />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <ChartTooltip
+              cursor={false}
+              content={({ payload }) => {
+                if (!payload?.length) return null;
+
+                const point = payload[0];
+                const month = point.payload.month;
+                const quantity =
+                  point.payload.cancelled +
+                  point.payload.processing +
+                  point.payload.delivered;
+
+                return (
+                  <div className="border-1 w-full flex flex-col gap-1 p-2 bg-background rounded-md">
+                    <div>
+                      <p className="font-medium">{month}</p>
+                      {quantity === 0
+                        ? 'Nenhum pedido'
+                        : quantity === 1
+                          ? `${quantity} pedido`
+                          : `${quantity} pedidos`}
+                    </div>
+                    <hr />
+                    {payload.map((item, index) => (
+                      <div key={index} className="flex justify-between gap-2">
+                        <p className="font-medium">
+                          {
+                            chartConfig[item.name as keyof typeof chartConfig]
+                              ?.label
+                          }
+                        </p>
+                        <p>{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                );
+              }}
+            />
             <Area
               dataKey="cancelled"
               type="natural"
@@ -119,24 +155,24 @@ export function ChartAreaStatusOrders({
         </ChartContainer>
       </CardContent>
       <CardFooter>
-        <div className="grid grid-cols-3 gap-2">
-          <div className="font-medium flex items-center gap-1">
+        <div className="w-full flex flex-wrap justify-center items-center gap-3">
+          <div className="text-sm font-medium flex items-center gap-1">
             <span
-              className="w-3 h-3 rounded-full"
+              className="min-w-3 max-w-3 min-h-3 max-h-3 rounded-full"
               style={{ backgroundColor: 'var(--chart-1)' }}
             />
             Cancelados
           </div>
-          <div className="font-medium flex items-center gap-1">
+          <div className="text-sm font-medium flex items-center gap-1">
             <span
-              className="w-3 h-3 rounded-full"
+              className="min-w-3 max-w-3 min-h-3 max-h-3 rounded-full"
               style={{ backgroundColor: 'var(--chart-2)' }}
             />
             Processando
           </div>
-          <div className="font-medium flex items-center gap-1">
+          <div className="text-sm font-medium flex items-center gap-1">
             <span
-              className="w-3 h-3 rounded-full"
+              className="min-w-3 max-w-3 min-h-3 max-h-3 rounded-full"
               style={{ backgroundColor: 'var(--chart-3)' }}
             />
             Vendidos

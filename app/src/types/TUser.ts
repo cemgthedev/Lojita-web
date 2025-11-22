@@ -4,6 +4,12 @@ export enum EGenders {
   other = 'other',
 }
 
+export const gendersLabels: Record<EGenders, string> = {
+  male: 'Masculino',
+  female: 'Feminino',
+  other: 'Outro',
+}
+
 export const genderOptions: { label: string; value: EGenders }[] = [
   { label: 'Masculino', value: EGenders.male },
   { label: 'Feminino', value: EGenders.female },
@@ -14,6 +20,12 @@ export enum ERoles {
   admin = 'admin',
   seller = 'seller',
   buyer = 'buyer',
+}
+
+export const rolesLabels: Record<ERoles, string> = {
+  admin: 'Administrador',
+  seller: 'Vendedor',
+  buyer: 'Comprador',
 }
 
 export const rolesOptions = [

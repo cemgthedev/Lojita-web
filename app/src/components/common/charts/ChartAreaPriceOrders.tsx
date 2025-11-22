@@ -13,7 +13,6 @@ import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
 } from '@/components/ui/chart';
 import { formatterPrice } from '@/utils/formatter.util';
 
@@ -24,7 +23,7 @@ export interface TPriceChartData {
   price: number;
 }
 
-export interface TChartAreaPriceOrdersProps {
+export interface TPriceOrdersChartAreaProps {
   quantity?: number;
   totalPrice?: string;
   chartData: TPriceChartData[];
@@ -41,7 +40,7 @@ export function ChartAreaPriceOrders({
   quantity = 0,
   totalPrice,
   chartData,
-}: TChartAreaPriceOrdersProps) {
+}: TPriceOrdersChartAreaProps) {
   return (
     <Card>
       <CardHeader className="justify-start gap-1">
@@ -87,22 +86,24 @@ export function ChartAreaPriceOrders({
             />
             <ChartTooltip
               cursor={false}
-              content={
-                <ChartTooltipContent
-                  formatter={(value, name) => (
-                    <div className="w-full flex flex-col gap-1">
-                      <hr />
-                      <div className="flex justify-between gap-2">
-                        <p className="font-medium">
-                          {chartConfig[name as keyof typeof chartConfig]
-                            ?.label || name}
-                        </p>
-                        <p>{formatterPrice(value as number)}</p>
-                      </div>
+              content={({ payload }) => {
+                if (!payload?.length) return null;
+
+                const point = payload[0];
+                const month = point.payload.month;
+                const price = point.payload.price;
+
+                return (
+                  <div className="border-1 w-full flex flex-col gap-1 p-2 bg-background rounded-md">
+                    <p className="font-medium">{month}</p>
+                    <hr />
+                    <div className="flex justify-between gap-2">
+                      <p className="font-medium">Total</p>
+                      <p>{formatterPrice(price)}</p>
                     </div>
-                  )}
-                />
-              }
+                  </div>
+                );
+              }}
             />
             <Area
               dataKey="price"
