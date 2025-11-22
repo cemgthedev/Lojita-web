@@ -7,6 +7,7 @@ import {
   ShoppingBasketIcon,
   ShoppingCartIcon,
   User2Icon,
+  Users2Icon,
 } from 'lucide-react';
 
 export type TNavItem = {
@@ -33,7 +34,7 @@ export const siteConfig: TSiteConfig = {
       {
         icon: <ChartPieIcon className="w-6 h-6" />,
         label: 'Dashboard',
-        href: Endpoints.dashboard,
+        href: `/${Endpoints.dashboard}`,
       },
       {
         icon: <User2Icon className="w-6 h-6" />,
@@ -60,7 +61,7 @@ export const siteConfig: TSiteConfig = {
       {
         icon: <ChartPieIcon className="w-6 h-6" />,
         label: 'Dashboard',
-        href: Endpoints.dashboard,
+        href: `/${Endpoints.dashboard}`,
       },
       {
         icon: <ShoppingBasketIcon className="w-6 h-6" />,
@@ -68,7 +69,7 @@ export const siteConfig: TSiteConfig = {
         href: Endpoints.products,
       },
       {
-        icon: <HandCoinsIcon className="w-6 h-6" />,
+        icon: <Users2Icon className="w-6 h-6" />,
         label: 'Clientes',
         href: Endpoints.clients,
       },
@@ -84,11 +85,6 @@ export const siteConfig: TSiteConfig = {
       },
     ],
     buyer: [
-      {
-        icon: <ChartPieIcon className="w-6 h-6" />,
-        label: 'Dashboard',
-        href: Endpoints.dashboard,
-      },
       {
         icon: <ShoppingBasketIcon className="w-6 h-6" />,
         label: 'Produtos',
