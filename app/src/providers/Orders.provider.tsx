@@ -14,7 +14,7 @@ import { ChartConfig } from '@/components/ui/chart';
 import { ordersMock } from '@/mock/orders';
 import { usersMock } from '@/mock/users';
 import { TOrder } from '@/types/TOrder';
-import { EGenders, gendersLabels } from '@/types/TUser';
+import { EGenders, GendersLabels } from '@/types/TUser';
 import { formatterPrice } from '@/utils/formatter.util';
 import {
   createContext,
@@ -418,7 +418,7 @@ export function ProviderOrders({ children }: IProviderOrders) {
 
     chartData.forEach((c) => {
       chartConfig[c.segment] = {
-        label: gendersLabels[c.segment as EGenders],
+        label: GendersLabels[c.segment as EGenders],
         color: c.fill,
       };
     });

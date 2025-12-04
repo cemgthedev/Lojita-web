@@ -2,7 +2,7 @@ import { TCreateUser } from '@/common/validations/users/create-user.schema';
 import { AutocompleteCustom } from '@/components/common/Inputs/AutocompleteCustom';
 import { InputCustom } from '@/components/common/Inputs/InputCustom';
 import { InputMaskCustom } from '@/components/common/Inputs/InputMask';
-import { genderOptions, rolesOptions } from '@/types/TUser';
+import { getGenderOptions, getRolesOptions } from '@/types/TUser';
 import { AutocompleteItem } from '@heroui/autocomplete';
 import { Controller, useFormContext } from 'react-hook-form';
 
@@ -16,6 +16,10 @@ export function UserForm({ isAdmin = false, isCreate = true }: IUserFormProps) {
     control,
     formState: { errors },
   } = useFormContext<TCreateUser>();
+
+  const rolesOptions = getRolesOptions();
+
+  const genderOptions = getGenderOptions();
 
   return (
     <div className="flex flex-col gap-4">
@@ -106,9 +110,7 @@ export function UserForm({ isAdmin = false, isCreate = true }: IUserFormProps) {
               onBlur={onBlur}
             >
               {(item: any) => (
-                <AutocompleteItem key={item.value}>
-                  {item.label}
-                </AutocompleteItem>
+                <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>
               )}
             </AutocompleteCustom>
           )}
@@ -178,9 +180,7 @@ export function UserForm({ isAdmin = false, isCreate = true }: IUserFormProps) {
               onBlur={onBlur}
             >
               {(item: any) => (
-                <AutocompleteItem key={item.value}>
-                  {item.label}
-                </AutocompleteItem>
+                <AutocompleteItem key={item.key}>{item.label}</AutocompleteItem>
               )}
             </AutocompleteCustom>
           )}

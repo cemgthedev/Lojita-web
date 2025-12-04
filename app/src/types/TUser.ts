@@ -4,17 +4,14 @@ export enum EGenders {
   other = 'other',
 }
 
-export const gendersLabels: Record<EGenders, string> = {
+export const GendersLabels: Record<EGenders, string> = {
   male: 'Masculino',
   female: 'Feminino',
   other: 'Outro',
-}
+};
 
-export const genderOptions: { label: string; value: EGenders }[] = [
-  { label: 'Masculino', value: EGenders.male },
-  { label: 'Feminino', value: EGenders.female },
-  { label: 'Outro', value: EGenders.other },
-];
+export const getGenderOptions = () =>
+  Object.entries(GendersLabels).map(([k, l]) => ({ key: k, label: l }));
 
 export enum ERoles {
   admin = 'admin',
@@ -22,19 +19,17 @@ export enum ERoles {
   buyer = 'buyer',
 }
 
-export const rolesLabels: Record<ERoles, string> = {
+export const RolesLabels: Record<ERoles, string> = {
   admin: 'Administrador',
   seller: 'Vendedor',
   buyer: 'Comprador',
-}
+};
 
-export const rolesOptions = [
-  { label: 'Vendedor', value: ERoles.seller },
-  { label: 'Comprador', value: ERoles.buyer },
-];
+export const getRolesOptions = () =>
+  Object.entries(RolesLabels).map(([k, l]) => ({ key: k, label: l }));
 
 export type TUser = {
-  id?: string;
+  id: string;
   avatarUrl?: string | null;
   name: string;
   document: string;
