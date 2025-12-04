@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Activity, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import DefaultLayout from './DefaultLayout';
@@ -30,10 +30,11 @@ export function ProtectedRoutes() {
       </div>
     );
 
-  // Renderiza o layout apenas se o usuário estiver autenticado
-  return user ? (
-    <ProviderApp>
-      <DefaultLayout />
-    </ProviderApp>
-  ) : null;
+  return (
+    <Activity mode={user ? 'visible' : 'hidden'}>
+      <ProviderApp>
+        <DefaultLayout />
+      </ProviderApp>
+    </Activity>
+  );
 }
