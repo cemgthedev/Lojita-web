@@ -1,5 +1,5 @@
 import { usersMock } from '@/mock/users';
-import { TUser } from '@/types/TUser';
+import { EGenders, ERoles, TUser } from '@/types/TUser';
 import { addToast } from '@heroui/toast';
 import { useMutation } from '@tanstack/react-query';
 import {
@@ -15,9 +15,11 @@ interface IContextUsers {
   setUsers: Dispatch<SetStateAction<TUser[]>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  filterUsers: IFilterUsers;
+  setFilterUsers: Dispatch<SetStateAction<IFilterUsers>>;
 
   createUser(user: TUser): void;
-  searchUser(): Promise<TUser[]>;
+  searchUsers(filterUsers: IFilterUsers): Promise<TUser[]>;
   getUser(id: string): Promise<TUser | undefined>;
   updateUser(user: TUser): void;
   deleteUser(id: string): Promise<boolean>;
@@ -29,9 +31,18 @@ interface IProviderUsers {
   children: ReactNode;
 }
 
+export interface IFilterUsers {
+  name?: string;
+  role?: ERoles;
+  gender?: EGenders;
+  minAge?: number;
+  maxAge?: number;
+}
+
 export function ProviderUsers({ children }: IProviderUsers) {
   const [users, setUsers] = useState<TUser[]>(usersMock);
   const [isLoading, setIsLoading] = useState(false);
+  const [filterUsers, setFilterUsers] = useState<IFilterUsers>({});
 
   const createUser = async (user: TUser): Promise<TUser | undefined> => {
     return new Promise((resolve) => {
@@ -69,11 +80,44 @@ export function ProviderUsers({ children }: IProviderUsers) {
     },
   });
 
-  const searchUser = async (): Promise<TUser[]> => {
+  const searchUsers = async (filterUsers: IFilterUsers): Promise<TUser[]> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(users);
-      }, 2000);
+        const filteredUsers = usersMock.filter((item) => {
+          const matchesName = filterUsers.name
+            ? item.name.toLowerCase().includes(filterUsers.name.toLowerCase())
+            : true;
+
+          const matchesGender = filterUsers?.gender
+            ? item.gender === filterUsers.gender
+            : true;
+
+          const matchesRole = filterUsers?.role
+            ? item.role === filterUsers.role
+            : true;
+
+          const matchesMinAge =
+            filterUsers.minAge !== undefined
+              ? (item.age ?? 0) >= filterUsers.minAge
+              : true;
+
+          const matchesMaxAge =
+            filterUsers.maxAge !== undefined
+              ? (item.age ?? 0) <= filterUsers.maxAge
+              : true;
+
+          return (
+            matchesName &&
+            matchesGender &&
+            matchesRole &&
+            matchesMinAge &&
+            matchesMaxAge
+          );
+        });
+
+        setUsers(filteredUsers);
+        resolve(filteredUsers);
+      }, 1000);
     });
   };
 
@@ -153,9 +197,11 @@ export function ProviderUsers({ children }: IProviderUsers) {
         setUsers,
         isLoading,
         setIsLoading,
+        filterUsers,
+        setFilterUsers,
         createUser: createUserMutation,
         updateUser: updateUserMutation,
-        searchUser,
+        searchUsers,
         getUser,
         deleteUser,
       }}
