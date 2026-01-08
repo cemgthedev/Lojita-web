@@ -172,7 +172,7 @@ export function TableUsers({
         message="Tem certeza que deseja excluir este pedido?"
         onClose={onClose}
         onContinue={() => {
-          user && remove?.(user?.id);
+          user && remove?.(user?.id || '');
         }}
       />
     </>
