@@ -5,6 +5,7 @@ import { ToastProvider } from '@heroui/toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { useTheme } from '@heroui/use-theme';
+import { useEffect } from 'react';
 import { ProviderAuthentication } from './Authentication.provider';
 
 declare module '@react-types/shared' {
@@ -16,6 +17,8 @@ declare module '@react-types/shared' {
 export function Provider({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
   const queryClient = new QueryClient();
+
+  useEffect(() => {}, [theme]);
 
   return (
     <HeroUIProvider>

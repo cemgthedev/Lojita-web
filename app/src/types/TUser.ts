@@ -29,7 +29,7 @@ export const getRolesOptions = () =>
   Object.entries(RolesLabels).map(([k, l]) => ({ key: k, label: l }));
 
 export type TUser = {
-  id: string;
+  id?: string;
   avatarUrl?: string | null;
   name: string;
   document: string;

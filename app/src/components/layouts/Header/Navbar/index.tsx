@@ -79,7 +79,7 @@ export const Navbar = () => {
           <DropdownMenu>
             <DropdownItem
               key="configs"
-              href={Endpoints.profile}
+              href={`${Endpoints.dashboard}/${Endpoints.profile}`}
               color="default"
               className="flex items-center gap-2"
               startContent={

@@ -34,27 +34,27 @@ export const siteConfig: TSiteConfig = {
       {
         icon: <ChartPieIcon className="w-6 h-6" />,
         label: 'Dashboard',
-        href: `/${Endpoints.dashboard}`,
+        href: `${Endpoints.dashboard}`,
       },
       {
         icon: <User2Icon className="w-6 h-6" />,
         label: 'Usuários',
-        href: Endpoints.users,
+        href: `${Endpoints.dashboard}/${Endpoints.users}`,
       },
       {
         icon: <ShoppingBasketIcon className="w-6 h-6" />,
         label: 'Produtos',
-        href: Endpoints.products,
+        href: `${Endpoints.dashboard}/${Endpoints.products}`,
       },
       {
         icon: <HandCoinsIcon className="w-6 h-6" />,
         label: 'Pedidos',
-        href: Endpoints.orders,
+        href: `${Endpoints.dashboard}/${Endpoints.orders}`,
       },
       {
         icon: <MessageCircleIcon className="w-6 h-6" />,
         label: 'Chats',
-        href: Endpoints.chats,
+        href: `${Endpoints.dashboard}/${Endpoints.chats}`,
       },
     ],
     seller: [
@@ -66,49 +66,49 @@ export const siteConfig: TSiteConfig = {
       {
         icon: <ShoppingBasketIcon className="w-6 h-6" />,
         label: 'Produtos',
-        href: Endpoints.products,
+        href: `${Endpoints.dashboard}/${Endpoints.products}`,
       },
       {
         icon: <Users2Icon className="w-6 h-6" />,
         label: 'Clientes',
-        href: Endpoints.clients,
+        href: `${Endpoints.dashboard}/${Endpoints.clients}`,
       },
       {
         icon: <HandCoinsIcon className="w-6 h-6" />,
         label: 'Pedidos',
-        href: Endpoints.orders,
+        href: `${Endpoints.dashboard}/${Endpoints.orders}`,
       },
       {
         icon: <MessageCircleIcon className="w-6 h-6" />,
         label: 'Chats',
-        href: Endpoints.chats,
+        href: `${Endpoints.dashboard}/${Endpoints.chats}`,
       },
     ],
     buyer: [
       {
         icon: <ShoppingBasketIcon className="w-6 h-6" />,
         label: 'Produtos',
-        href: Endpoints.products,
+        href: `${Endpoints.dashboard}/${Endpoints.products}`,
       },
       {
         icon: <HeartIcon className="w-6 h-6" />,
         label: 'Favoritos',
-        href: Endpoints.favorites,
+        href: `${Endpoints.dashboard}/${Endpoints.favorites}`,
       },
       {
         icon: <ShoppingCartIcon className="w-6 h-6" />,
         label: 'Carrinho',
-        href: Endpoints.cart,
+        href: `${Endpoints.dashboard}/${Endpoints.cart}`,
       },
       {
         icon: <HandCoinsIcon className="w-6 h-6" />,
         label: 'Pedidos',
-        href: Endpoints.orders,
+        href: `${Endpoints.dashboard}/${Endpoints.orders}`,
       },
       {
         icon: <MessageCircleIcon className="w-6 h-6" />,
         label: 'Chats',
-        href: Endpoints.chats,
+        href: `${Endpoints.dashboard}/${Endpoints.chats}`,
       },
     ],
   },
